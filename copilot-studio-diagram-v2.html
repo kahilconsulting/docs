@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How Copilot Studio Works</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ms-blue:    #0078d4;
+      --ms-purple:  #5c2d91;
+      --ms-violet:  #8661c5;
+      --ms-teal:    #038387;
+      --ms-green:   #107c10;
+      --ms-orange:  #d83b01;
+      --ms-red:     #c50f1f;
+      --ms-gold:    #986f0b;
+      --bg:         #f3f5f9;
+      --surface:    #ffffff;
+      --border:     #e1e4ed;
+      --text-main:  #1b1b2f;
+      --text-muted: #6b6b80;
+      --text-label: #8f8fa8;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text-main);
+      min-height: 100vh;
+    }
+
+    /* ── Page header ── */
+    .page-header {
+      background: linear-gradient(135deg, #1b1454 0%, #3a1b6e 40%, #0d5e9e 100%);
+      padding: 48px 40px 52px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 70% 50%, rgba(134,97,197,0.25) 0%, transparent 60%),
+                  radial-gradient(ellipse at 20% 80%, rgba(0,120,212,0.2) 0%, transparent 55%);
+    }
+
+    .page-header .ms-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 20px;
+      padding: 5px 14px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.85);
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+      position: relative;
+    }
+
+    .page-header h1 {
+      font-size: 2.4rem;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -0.5px;
+      position: relative;
+      margin-bottom: 12px;
+    }
+
+    .page-header .subtitle {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.72);
+      position: relative;
+      max-width: 560px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* ── Lifecycle pill nav ── */
+    .lifecycle-bar {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 0 40px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .lifecycle-steps {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      overflow-x: auto;
+    }
+
+    .lc-step {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      white-space: nowrap;
+      border-bottom: 3px solid transparent;
+      cursor: default;
+      transition: color 0.2s;
+    }
+
+    .lc-step.active { color: var(--ms-blue); border-bottom-color: var(--ms-blue); }
+    .lc-step .lc-num {
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      background: var(--bg);
+      border: 1.5px solid currentColor;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.68rem;
+      font-weight: 700;
+    }
+    .lc-step.active .lc-num { background: var(--ms-blue); border-color: var(--ms-blue); color: #fff; }
+
+    .lc-arrow { color: var(--border); font-size: 0.9rem; padding: 0 2px; }
+
+    /* ── Main content ── */
+    .main {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 48px 24px 64px;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    /* ── Layer section ── */
+    .layer {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      position: relative;
+    }
+
+    /* Connector between layers */
+    .connector {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+      padding: 8px 0;
+    }
+
+    .connector-line {
+      width: 2px;
+      height: 28px;
+      background: linear-gradient(to bottom, var(--border), #c5cad8);
+    }
+
+    .connector-arrow {
+      width: 0; height: 0;
+      border-left: 7px solid transparent;
+      border-right: 7px solid transparent;
+      border-top: 9px solid #c5cad8;
+    }
+
+    /* ── Layer header ── */
+    .layer-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 4px;
+    }
+
+    .layer-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 5px 14px 5px 8px;
+      border-radius: 20px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .layer-badge .badge-num {
+      width: 20px; height: 20px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.68rem;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .badge-build    { background: rgba(92,45,145,0.10); color: #5c2d91; }
+    .badge-build    .badge-num { background: #5c2d91; }
+    .badge-blocks   { background: rgba(0,120,212,0.10); color: #0078d4; }
+    .badge-blocks   .badge-num { background: #0078d4; }
+    .badge-ai       { background: rgba(3,131,135,0.10); color: #038387; }
+    .badge-ai       .badge-num { background: #038387; }
+    .badge-int      { background: rgba(152,111,11,0.10); color: #986f0b; }
+    .badge-int      .badge-num { background: #986f0b; }
+    .badge-deploy   { background: rgba(216,59,1,0.10); color: #d83b01; }
+    .badge-deploy   .badge-num { background: #d83b01; }
+    .badge-monitor  { background: rgba(16,124,16,0.10); color: #107c10; }
+    .badge-monitor  .badge-num { background: #107c10; }
+
+    .layer-rule {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ── Hero banner card ── */
+    .hero-card {
+      background: linear-gradient(135deg, #5c2d91, #3a1b6e);
+      border-radius: 16px;
+      padding: 28px 36px;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      box-shadow: 0 4px 24px rgba(92,45,145,0.22);
+    }
+
+    .hero-icon {
+      width: 60px; height: 60px;
+      background: rgba(255,255,255,0.15);
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.8rem;
+      flex-shrink: 0;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .hero-card h2 { font-size: 1.35rem; font-weight: 700; color: #fff; margin-bottom: 6px; }
+    .hero-card p  { font-size: 0.87rem; color: rgba(255,255,255,0.78); line-height: 1.6; }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 12px;
+    }
+
+    .hero-tag {
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 20px;
+      padding: 3px 10px;
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.85);
+      font-weight: 500;
+    }
+
+    /* ── Card grid ── */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .cards.two-col { grid-template-columns: repeat(2, 1fr); }
+
+    /* ── Feature card ── */
+    .card {
+      background: var(--surface);
+      border-radius: 14px;
+      padding: 22px 24px;
+      border: 1px solid var(--border);
+      box-shadow: 0 1px 8px rgba(0,0,0,0.05);
+      transition: box-shadow 0.2s, transform 0.2s;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .card:hover {
+      box-shadow: 0 6px 24px rgba(0,0,0,0.10);
+      transform: translateY(-2px);
+    }
+
+    .card-icon-wrap {
+      width: 44px; height: 44px;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem;
+      flex-shrink: 0;
+    }
+
+    .card h3 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-top: 2px;
+    }
+
+    .card p {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-top: 4px;
+    }
+
+    .tag {
+      border-radius: 20px;
+      padding: 3px 9px;
+      font-size: 0.71rem;
+      font-weight: 500;
+    }
+
+    /* Color variants */
+    .c-purple .card-icon-wrap { background: rgba(92,45,145,0.08); }
+    .c-purple .tag { background: rgba(92,45,145,0.08); color: #5c2d91; }
+    .c-purple { border-left: 3px solid #5c2d91; }
+
+    .c-blue .card-icon-wrap { background: rgba(0,120,212,0.08); }
+    .c-blue .tag { background: rgba(0,120,212,0.08); color: #0078d4; }
+    .c-blue { border-left: 3px solid #0078d4; }
+
+    .c-teal .card-icon-wrap { background: rgba(3,131,135,0.08); }
+    .c-teal .tag { background: rgba(3,131,135,0.08); color: #038387; }
+    .c-teal { border-left: 3px solid #038387; }
+
+    .c-gold .card-icon-wrap { background: rgba(152,111,11,0.08); }
+    .c-gold .tag { background: rgba(152,111,11,0.08); color: #986f0b; }
+    .c-gold { border-left: 3px solid #986f0b; }
+
+    .c-orange .card-icon-wrap { background: rgba(216,59,1,0.08); }
+    .c-orange .tag { background: rgba(216,59,1,0.08); color: #d83b01; }
+    .c-orange { border-left: 3px solid #d83b01; }
+
+    .c-green .card-icon-wrap { background: rgba(16,124,16,0.08); }
+    .c-green .tag { background: rgba(16,124,16,0.08); color: #107c10; }
+    .c-green { border-left: 3px solid #107c10; }
+
+    /* ── Legend ── */
+    .legend-section {
+      margin-top: 40px;
+      padding-top: 28px;
+      border-top: 1px solid var(--border);
+    }
+
+    .legend-title {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: var(--text-label);
+      text-align: center;
+      margin-bottom: 16px;
+    }
+
+    .legend-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 24px;
+      justify-content: center;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .legend-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* ── Footer ── */
+    .page-footer {
+      text-align: center;
+      padding: 24px 40px;
+      font-size: 0.74rem;
+      color: var(--text-label);
+      border-top: 1px solid var(--border);
+      background: var(--surface);
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 800px) {
+      .cards { grid-template-columns: 1fr; }
+      .cards.two-col { grid-template-columns: 1fr; }
+      .lifecycle-steps { gap: 0; }
+      .lc-step { padding: 12px 12px; font-size: 0.72rem; }
+      .page-header h1 { font-size: 1.7rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── PAGE HEADER ── -->
+  <header class="page-header">
+    <div class="ms-badge">&#9670; Microsoft Power Platform</div>
+    <h1>How Copilot Studio Works</h1>
+    <p class="subtitle">A low-code platform for building AI-powered conversational copilots — from design to deployment to continuous improvement.</p>
+  </header>
+
+  <!-- ── LIFECYCLE BAR ── -->
+  <nav class="lifecycle-bar">
+    <div class="lifecycle-steps">
+      <div class="lc-step active"><div class="lc-num">1</div> Build</div>
+      <div class="lc-arrow">›</div>
+      <div class="lc-step active"><div class="lc-num">2</div> Configure</div>
+      <div class="lc-arrow">›</div>
+      <div class="lc-step active"><div class="lc-num">3</div> Enrich with AI</div>
+      <div class="lc-arrow">›</div>
+      <div class="lc-step active"><div class="lc-num">4</div> Integrate</div>
+      <div class="lc-arrow">›</div>
+      <div class="lc-step active"><div class="lc-num">5</div> Publish</div>
+      <div class="lc-arrow">›</div>
+      <div class="lc-step active"><div class="lc-num">6</div> Monitor</div>
+    </div>
+  </nav>
+
+  <!-- ── MAIN DIAGRAM ── -->
+  <main class="main">
+
+    <!-- ① BUILD -->
+    <section class="layer">
+      <div class="layer-header">
+        <span class="layer-badge badge-build"><span class="badge-num">1</span> Build — Authoring Environment</span>
+        <div class="layer-rule"></div>
+      </div>
+
+      <div class="hero-card">
+        <div class="hero-icon">🧩</div>
+        <div>
+          <h2>Copilot Studio Designer</h2>
+          <p>A low-code / no-code web canvas where makers build conversational copilots visually — no deep AI expertise required. Configure topics, test conversations, and publish — all in one place.</p>
+          <div class="hero-tags">
+            <span class="hero-tag">Visual canvas</span>
+            <span class="hero-tag">No-code / low-code</span>
+            <span class="hero-tag">Built-in testing</span>
+            <span class="hero-tag">One-click publish</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="connector"><div class="connector-line"></div><div class="connector-arrow"></div></div>
+
+    <!-- ② CORE BUILDING BLOCKS -->
+    <section class="layer">
+      <div class="layer-header">
+        <span class="layer-badge badge-blocks"><span class="badge-num">2</span> Core Building Blocks</span>
+        <div class="layer-rule"></div>
+      </div>
+
+      <div class="cards">
+
+        <div class="card c-blue">
+          <div class="card-icon-wrap">💬</div>
+          <h3>Topics</h3>
+          <p>Conversation flows triggered by user phrases or intents. Each topic contains nodes — questions, messages, conditions, and actions — that guide the dialogue.</p>
+          <div class="card-tags">
+            <span class="tag">Trigger phrases</span>
+            <span class="tag">Branching logic</span>
+            <span class="tag">Variables</span>
+          </div>
+        </div>
+
+        <div class="card c-purple">
+          <div class="card-icon-wrap">⚡</div>
+          <h3>Actions</h3>
+          <p>Extend capabilities by calling Power Automate flows, custom connectors, or Azure services to perform real-world tasks inside a conversation.</p>
+          <div class="card-tags">
+            <span class="tag">Power Automate</span>
+            <span class="tag">HTTP requests</span>
+            <span class="tag">Connectors</span>
+          </div>
+        </div>
+
+        <div class="card c-teal">
+          <div class="card-icon-wrap">📚</div>
+          <h3>Knowledge Sources</h3>
+          <p>Ground generative AI responses in authoritative content — documents, websites, SharePoint, and Dataverse — to reduce hallucinations and improve accuracy.</p>
+          <div class="card-tags">
+            <span class="tag">SharePoint</span>
+            <span class="tag">Public URLs</span>
+            <span class="tag">Files / PDFs</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <div class="connector"><div class="connector-line"></div><div class="connector-arrow"></div></div>
+
+    <!-- ③ AI ENGINE -->
+    <section class="layer">
+      <div class="layer-header">
+        <span class="layer-badge badge-ai"><span class="badge-num">3</span> AI Engine — Intelligence Layer</span>
+        <div class="layer-rule"></div>
+      </div>
+
+      <div class="cards">
+
+        <div class="card c-teal">
+          <div class="card-icon-wrap">🤖</div>
+          <h3>Generative AI (Azure OpenAI)</h3>
+          <p>Powers natural language understanding, fallback responses, and generative answers when no exact topic matches the user's message.</p>
+          <div class="card-tags">
+            <span class="tag">GPT-powered</span>
+            <span class="tag">Grounded responses</span>
+          </div>
+        </div>
+
+        <div class="card c-teal">
+          <div class="card-icon-wrap">🎯</div>
+          <h3>NLU &amp; Intent Recognition</h3>
+          <p>Analyses user messages, matches them to the closest topic using built-in language models, and manages conversation context across multiple turns.</p>
+          <div class="card-tags">
+            <span class="tag">Intent matching</span>
+            <span class="tag">Context tracking</span>
+          </div>
+        </div>
+
+        <div class="card c-teal">
+          <div class="card-icon-wrap">🔐</div>
+          <h3>Authentication &amp; Security</h3>
+          <p>Supports AAD / SSO, role-based access, data loss prevention policies, and tenant-level governance through Power Platform admin centre.</p>
+          <div class="card-tags">
+            <span class="tag">AAD / SSO</span>
+            <span class="tag">DLP policies</span>
+            <span class="tag">RBAC</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <div class="connector"><div class="connector-line"></div><div class="connector-arrow"></div></div>
+
+    <!-- ④ INTEGRATIONS -->
+    <section class="layer">
+      <div class="layer-header">
+        <span class="layer-badge badge-int"><span class="badge-num">4</span> Integrations &amp; Ecosystem</span>
+        <div class="layer-rule"></div>
+      </div>
+
+      <div class="cards">
+
+        <div class="card c-gold">
+          <div class="card-icon-wrap">🔗</div>
+          <h3>Power Platform</h3>
+          <p>Native integration with Power Automate (flows), Power Apps (embedding), and Dataverse for structured data storage and retrieval.</p>
+          <div class="card-tags">
+            <span class="tag">Power Automate</span>
+            <span class="tag">Power Apps</span>
+            <span class="tag">Dataverse</span>
+          </div>
+        </div>
+
+        <div class="card c-gold">
+          <div class="card-icon-wrap">☁️</div>
+          <h3>Microsoft 365 &amp; Azure</h3>
+          <p>Connect to Teams, Outlook, SharePoint, and Azure services like Cognitive Search, SQL Database, and Blob Storage via managed connectors.</p>
+          <div class="card-tags">
+            <span class="tag">Teams</span>
+            <span class="tag">SharePoint</span>
+            <span class="tag">Azure services</span>
+          </div>
+        </div>
+
+        <div class="card c-gold">
+          <div class="card-icon-wrap">🌐</div>
+          <h3>External Systems</h3>
+          <p>Call any REST API, SAP, Salesforce, ServiceNow, or custom back-end through certified or custom connectors and direct HTTP actions.</p>
+          <div class="card-tags">
+            <span class="tag">REST APIs</span>
+            <span class="tag">SAP / Salesforce</span>
+            <span class="tag">ServiceNow</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <div class="connector"><div class="connector-line"></div><div class="connector-arrow"></div></div>
+
+    <!-- ⑤ DEPLOYMENT -->
+    <section class="layer">
+      <div class="layer-header">
+        <span class="layer-badge badge-deploy"><span class="badge-num">5</span> Publish — Deployment Channels</span>
+        <div class="layer-rule"></div>
+      </div>
+
+      <div class="cards">
+
+        <div class="card c-orange">
+          <div class="card-icon-wrap">💼</div>
+          <h3>Microsoft Teams</h3>
+          <p>One-click publish as a Teams app. Appears in the Teams app store for internal employees with SSO pre-wired — no extra sign-in required.</p>
+          <div class="card-tags">
+            <span class="tag">SSO pre-wired</span>
+            <span class="tag">Internal app store</span>
+          </div>
+        </div>
+
+        <div class="card c-orange">
+          <div class="card-icon-wrap">🌍</div>
+          <h3>Website / Web Chat</h3>
+          <p>Embed a chat widget on any web page with a single script tag. Customise colours, greetings, and avatars to match your brand.</p>
+          <div class="card-tags">
+            <span class="tag">Script embed</span>
+            <span class="tag">Fully branded</span>
+          </div>
+        </div>
+
+        <div class="card c-orange">
+          <div class="card-icon-wrap">📱</div>
+          <h3>Other Channels</h3>
+          <p>Deploy to Facebook Messenger, Slack, Telephony (IVR), email, and custom surfaces via the Direct Line API and channel adapters.</p>
+          <div class="card-tags">
+            <span class="tag">Messenger / Slack</span>
+            <span class="tag">IVR / Telephony</span>
+            <span class="tag">Direct Line API</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <div class="connector"><div class="connector-line"></div><div class="connector-arrow"></div></div>
+
+    <!-- ⑥ MONITOR -->
+    <section class="layer">
+      <div class="layer-header">
+        <span class="layer-badge badge-monitor"><span class="badge-num">6</span> Monitor — Analytics &amp; Continuous Improvement</span>
+        <div class="layer-rule"></div>
+      </div>
+
+      <div class="cards">
+
+        <div class="card c-green">
+          <div class="card-icon-wrap">📊</div>
+          <h3>Built-in Analytics</h3>
+          <p>Track session volume, topic resolution rates, escalation triggers, and CSAT scores directly inside the Copilot Studio analytics dashboard.</p>
+          <div class="card-tags">
+            <span class="tag">Resolution rate</span>
+            <span class="tag">CSAT</span>
+            <span class="tag">Session volume</span>
+          </div>
+        </div>
+
+        <div class="card c-green">
+          <div class="card-icon-wrap">🔄</div>
+          <h3>Conversation Transcripts</h3>
+          <p>Review real user conversations to identify unrecognised intents, refine trigger phrases, and continuously expand topic coverage.</p>
+          <div class="card-tags">
+            <span class="tag">Intent gaps</span>
+            <span class="tag">Phrase tuning</span>
+          </div>
+        </div>
+
+        <div class="card c-green">
+          <div class="card-icon-wrap">📣</div>
+          <h3>Escalation to Human Agents</h3>
+          <p>Hand off seamlessly to Dynamics 365 Customer Service, Omnichannel, or any live-agent platform when the copilot cannot resolve an issue.</p>
+          <div class="card-tags">
+            <span class="tag">Dynamics 365</span>
+            <span class="tag">Omnichannel</span>
+            <span class="tag">Custom handoff</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── LEGEND ── -->
+    <div class="legend-section">
+      <p class="legend-title">Layer Legend</p>
+      <div class="legend-grid">
+        <div class="legend-item"><div class="legend-dot" style="background:#5c2d91"></div> Authoring &amp; Design</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#0078d4"></div> Topics &amp; Conversation Logic</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#5c2d91"></div> Actions &amp; Automation</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#038387"></div> AI Engine &amp; Security</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#986f0b"></div> Integrations &amp; Connectors</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#d83b01"></div> Publishing Channels</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#107c10"></div> Analytics &amp; Improvement</div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="page-footer">
+    Microsoft Copilot Studio &nbsp;·&nbsp; Architecture Overview &nbsp;·&nbsp; March 2026
+  </footer>
+
+</body>
+</html>
