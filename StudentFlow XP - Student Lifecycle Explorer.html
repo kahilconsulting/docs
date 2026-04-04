@@ -209,7 +209,7 @@
       transform: translateY(-1px);
     }
     .w-card.w-card-system {
-      background: rgba(30,41,59,0.04);
+      background: rgba(30,41,59,0.1);
       border: 1px solid rgba(30,41,59,0.18) !important;
       border-left: 3px solid rgba(30,41,59,0.28) !important;
       cursor: default;
@@ -296,17 +296,21 @@
 
     /* ── AI Agent card ── */
     .agent-card {
-      background: rgba(67,56,202,0.07);
-      border: 1.5px solid rgba(67,56,202,0.25);
+      background: #fff;
+      border: 1px solid #E2E8F0;
+      border-left: 3px solid #7C3AED;
       border-radius: 7px;
       padding: 9px 11px;
+      margin-bottom: 7px;
       cursor: pointer;
-      transition: border-color 0.15s, background 0.15s;
+      transition: box-shadow 0.15s, transform 0.12s;
       user-select: none;
     }
+    .agent-card:last-of-type { margin-bottom: 0; }
     .agent-card:hover {
-      border-color: #4338CA;
-      background: rgba(67,56,202,0.13);
+      border-color: #7C3AED;
+      box-shadow: 0 3px 10px rgba(124,58,237,0.12);
+      transform: translateY(-1px);
     }
     .agent-eyebrow {
       font-size: 8px;
@@ -316,7 +320,11 @@
       color: #4338CA;
       margin-bottom: 3px;
     }
-    .agent-card .w-card-title { margin-bottom: 0; }
+    .agent-card .w-card-title { margin-bottom: 0; font-size: 10px; display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    .agent-card-header { display: flex; align-items: flex-start; gap: 5px; }
+    .agent-icon { width: 14px; height: 14px; object-fit: contain; flex-shrink: 0; margin-top: 1px; }
+    .stage-cell.agents-cell { display: flex; flex-wrap: wrap; gap: 5px; align-content: flex-start; }
+    .stage-cell.agents-cell .agent-card { flex: 1 1 calc(50% - 3px); min-width: 0; margin-bottom: 0; }
 
 
     /* ── Integration layer strip ── */
@@ -360,7 +368,7 @@
       font-size: 10px;
       font-weight: 600;
       color: #334155;
-      background: rgba(30,41,59,0.07);
+      background: rgba(30,41,59,0.1);
       border: 1px solid rgba(30,41,59,0.18);
       padding: 3px 9px;
       border-radius: 999px;
@@ -636,17 +644,19 @@ const STAGES = [
         'Report on campaign performance and prospect-to-enquiry conversion'
       ]
     },
-    aiAgent: {
-      title: 'Prospect Engagement Agent',
-      desc: 'Available on the university website to surface relevant course information, capture prospect interest, and guide visitors toward making an enquiry.',
-      sections: [{ head: null, items: [
-        'Available 24/7 via the university website and public portal',
-        'Answers questions about courses, campus life, and open day events',
-        'Captures prospect name, email, and course interest to create a lead record',
-        'Guides high-intent prospects toward submitting a formal enquiry',
-        'Escalates to a live advisor when the prospect requests personal guidance'
-      ]}]
-    }
+    aiAgents: [
+      {
+        title: 'Prospect Engagement Agent',
+        desc: 'Available on the university website to surface relevant course information, capture prospect interest, and guide visitors toward making an enquiry.',
+        sections: [{ head: null, items: [
+          'Available 24/7 via the university website and public portal',
+          'Answers questions about courses, campus life, and open day events',
+          'Captures prospect name, email, and course interest to create a lead record',
+          'Guides high-intent prospects toward submitting a formal enquiry',
+          'Escalates to a live advisor when the prospect requests personal guidance'
+        ]}]
+      }
+    ]
   },
   {
     id: 'enquiry',
@@ -656,16 +666,29 @@ const STAGES = [
     staffExpSummary: 'Enquiry Management',
     features: [
       {
-        title: 'Enquiry & Knowledge Management',
+        title: 'Enquiry Management',
         platform: 'apps',
         type: 'Staff portal',
-        desc: 'Capture, assign, and resolve inbound enquiries while maintaining a centralised knowledge base that powers consistent answers across staff and AI channels.',
+        desc: 'Capture, assign, and resolve inbound enquiries from all channels in a centralised inbox, ensuring every prospective student receives a timely and consistent response.',
         sections: [{ head: null, items: [
           'Centralised inbox for all inbound enquiries across web, phone, email, and chat',
           'Assign enquiries to the right advisor or faculty and track to resolution',
           'Log all interactions and set follow-up tasks with due dates and reminders',
+          'Monitor engagement scores and flag high-intent prospects for priority follow-up',
+          'Escalate complex enquiries to senior advisors or faculty specialists'
+        ]}]
+      },
+      {
+        title: 'Knowledge Management',
+        platform: 'apps',
+        type: 'Staff portal',
+        desc: 'Maintain a centralised, searchable knowledge base of FAQs, policies, and course information that powers consistent answers across staff and AI channels.',
+        sections: [{ head: null, items: [
           'Searchable knowledge base of FAQs, policies, and course information for staff',
-          'Knowledge articles surfaced automatically by the AI Enquiry Agent in conversations'
+          'Knowledge articles surfaced automatically by the AI Enquiry Agent in conversations',
+          'Author, review, and publish articles with version control and expiry dates',
+          'Tag articles to courses, faculties, and enquiry categories for fast retrieval',
+          'Analytics on article usage and search gaps to continuously improve content'
         ]}]
       },
       {
@@ -703,17 +726,19 @@ const STAGES = [
         'Manage post-survey follow-up and personalised outreach'
       ]
     },
-    aiAgent: {
-      title: 'AI Enquiry Agent',
-      desc: 'Answers common questions about courses, entry requirements, and processes 24/7; captures lead details; escalates to staff when needed.',
-      sections: [{ head: null, items: [
-        'Available 24/7 via the university website and public portal',
-        'Answers questions about courses, entry requirements, fees, and key dates',
-        'Captures prospect name, email, and course interest to create a lead record',
-        'Books appointments with advisors for complex or high-intent enquiries',
-        'Escalates to a live advisor when the enquiry cannot be resolved by AI'
-      ]}]
-    }
+    aiAgents: [
+      {
+        title: 'AI Enquiry Agent',
+        desc: 'Answers common questions about courses, entry requirements, and processes 24/7; captures lead details; escalates to staff when needed.',
+        sections: [{ head: null, items: [
+          'Available 24/7 via the university website and public portal',
+          'Answers questions about courses, entry requirements, fees, and key dates',
+          'Captures prospect name, email, and course interest to create a lead record',
+          'Books appointments with advisors for complex or high-intent enquiries',
+          'Escalates to a live advisor when the enquiry cannot be resolved by AI'
+        ]}]
+      }
+    ]
   },
   {
     id: 'application',
@@ -773,17 +798,53 @@ const STAGES = [
         'Report on application volumes and conversion by course and faculty'
       ]
     },
-    aiAgent: {
-      title: 'AI Application Agent',
-      desc: 'Guides applicants through requirements, answers status questions, and flags incomplete applications before submission.',
-      sections: [{ head: null, items: [
-        'Explains entry requirements for each course and study mode',
-        'Guides applicants through the document requirements for their situation',
-        'Answers status questions — where is my application, what is needed next?',
-        'Flags incomplete or inconsistent sections before the applicant submits',
-        'Escalates complex eligibility questions to an admissions officer'
-      ]}]
-    }
+    aiAgents: [
+      {
+        title: 'Document Data Extractor',
+        desc: 'Automatically extracts and validates structured data from submitted application documents — reducing manual data entry and accelerating the admissions review process.',
+        sections: [{ head: null, items: [
+          'Extracts key data fields from uploaded transcripts, identification, and supporting documents',
+          'Maps extracted data to the applicant record automatically for staff review',
+          'Flags missing, illegible, or inconsistent document data before admissions assessment',
+          'Supports common document formats including PDF, Word, and scanned images',
+          'Confidence scoring on extracted fields so staff can prioritise manual checks',
+          'Audit trail of all extracted data and any staff corrections made post-extraction'
+        ]}]
+      },
+      {
+        title: 'Eligibility Checker',
+        desc: 'Assesses applicant eligibility against available scholarship criteria in real time — helping prospective students discover relevant opportunities and reducing manual screening for staff.',
+        sections: [{ head: null, items: [
+          'Matches applicant profile against all active scholarship eligibility criteria',
+          'Surfaces relevant scholarships the applicant may not have been aware of',
+          'Explains eligibility requirements and what supporting evidence is needed',
+          'Guides applicants through the scholarship application process step by step',
+          'Flags borderline cases for staff review where eligibility is unclear'
+        ]}]
+      },
+      {
+        title: 'Schol. Answers Reviewer',
+        desc: 'Assists staff in reviewing scholarship applications by summarising applicant evidence, highlighting strengths and gaps, and surfacing relevant context from the student record.',
+        sections: [{ head: null, items: [
+          'Summarises each scholarship application into a structured review brief for assessors',
+          'Highlights evidence that directly supports or contradicts eligibility criteria',
+          'Surfaces relevant applicant context from the student record (academic history, prior awards)',
+          'Flags incomplete or unverified supporting documents before formal assessment begins',
+          'Generates a draft assessment note for staff to review, edit, and finalise'
+        ]}]
+      },
+      {
+        title: 'Scholarship Scorer',
+        desc: 'Applies consistent, criteria-based scoring to scholarship applications — reducing assessment bias and helping staff prioritise and compare applicants efficiently.',
+        sections: [{ head: null, items: [
+          'Scores each application against defined scholarship criteria using a weighted model',
+          'Produces a ranked shortlist of applicants for each scholarship round',
+          'Provides a transparent breakdown of scores by criterion for staff review',
+          'Flags applications where scores are close to award or rejection thresholds',
+          'Audit trail of all scoring decisions for compliance and review purposes'
+        ]}]
+      }
+    ]
   },
   {
     id: 'admission',
@@ -857,17 +918,52 @@ const STAGES = [
         'Report on offer conversion rates by course, faculty, and applicant segment'
       ]
     },
-    aiAgent: {
-      title: 'AI Admissions Agent',
-      desc: 'Answers questions about assessment outcomes, offer conditions, and next steps; guides applicants through credit transfer requirements and offer acceptance.',
-      sections: [{ head: null, items: [
-        'Explains credit transfer and RPL eligibility requirements and process',
-        'Answers questions about offer conditions and what is required to confirm',
-        'Provides status updates on RPL assessments and offer decisions',
-        'Guides applicants through government funding eligibility and form requirements',
-        'Escalates complex assessment queries to the admissions team'
-      ]}]
-    }
+    aiAgents: [
+      {
+        title: 'RPL Support Agent',
+        desc: 'Answers questions about assessment outcomes, offer conditions, and next steps; guides applicants through credit transfer requirements and offer acceptance.',
+        sections: [{ head: null, items: [
+          'Explains credit transfer and RPL eligibility requirements and process',
+          'Answers questions about offer conditions and what is required to confirm',
+          'Provides status updates on RPL assessments and offer decisions',
+          'Guides applicants through government funding eligibility and form requirements',
+          'Escalates complex assessment queries to the admissions team'
+        ]}]
+      },
+      {
+        title: 'Document Genuineness Checker',
+        desc: 'Analyses submitted documents for authenticity indicators — helping admissions staff identify potentially fraudulent or altered documents before assessment proceeds.',
+        sections: [{ head: null, items: [
+          'Checks submitted documents for signs of tampering, alteration, or inconsistency',
+          'Cross-references document metadata, formatting, and issuer patterns against known standards',
+          'Flags suspicious documents for staff review with a confidence-based risk rating',
+          'Maintains an audit trail of all genuineness checks performed per application',
+          'Escalates high-risk documents to a senior admissions officer for manual verification'
+        ]}]
+      },
+      {
+        title: 'Payslips Checker & Calculator',
+        desc: 'Extracts and validates income data from submitted payslips — supporting government funding eligibility assessments and financial means-testing with accurate, automated calculations.',
+        sections: [{ head: null, items: [
+          'Extracts income figures, employer details, and pay periods from uploaded payslips',
+          'Calculates annualised income and compares against funding eligibility thresholds',
+          'Flags inconsistencies between payslips and declared income on the application form',
+          'Supports multiple payslip formats including PDF, scanned, and digital documents',
+          'Produces a structured income summary for staff to review and attach to the student record'
+        ]}]
+      },
+      {
+        title: 'RPL & Payment Support Application Checker',
+        desc: 'Reviews Recognition of Prior Learning and payment support applications for completeness and eligibility before routing to academic assessors and finance teams.',
+        sections: [{ head: null, items: [
+          'Checks RPL applications for required evidence, documentation, and declared prior learning',
+          'Assesses payment support applications against eligibility criteria and supporting evidence',
+          'Flags missing or insufficient evidence before the application reaches a human assessor',
+          'Summarises RPL claims by unit or competency for assessor review',
+          'Routes complete applications to the appropriate assessor or finance team automatically'
+        ]}]
+      }
+    ]
   },
   {
     id: 'study',
@@ -907,17 +1003,7 @@ const STAGES = [
         'Prepare and publish results in line with academic calendar'
       ]
     },
-    aiAgent: {
-      title: 'Study Support Agent',
-      desc: 'Answers questions about assessment requirements, deadlines, policies, and study resources; books appointments with advisors; escalates concerns to staff.',
-      sections: [{ head: null, items: [
-        'Answers questions about assessment requirements, submission formats, and deadlines',
-        'Explains university policies — extensions, special consideration, academic integrity',
-        'Connects students to relevant study resources and support materials',
-        'Books appointments with academic advisors, tutors, and support services',
-        'Identifies and escalates students showing signs of distress or disengagement'
-      ]}]
-    }
+    aiAgents: []
   },
   {
     id: 'alumni',
@@ -1003,17 +1089,7 @@ const STAGES = [
         'Identify alumni for postgraduate re-engagement pathways'
       ]
     },
-    aiAgent: {
-      title: 'Alumni Engagement Agent',
-      desc: 'Answers questions about alumni benefits, CPD offerings, and events; facilitates reconnection with the university; routes postgraduate enquiries to admissions.',
-      sections: [{ head: null, items: [
-        'Answers questions about alumni benefits, services, and how to access them',
-        'Provides information on upcoming events and CPD offerings',
-        'Facilitates profile updates and reconnection with the alumni network',
-        'Routes postgraduate study enquiries to the admissions team',
-        'Captures alumni career updates to enrich the database'
-      ]}]
-    }
+    aiAgents: []
   }
 ];
 
@@ -1162,7 +1238,16 @@ function renderGrid() {
 
   // AI Agents row
   html += `<div class="row-label"><span>AI Agents</span></div>`;
-  STAGES.forEach(() => { html += `<div class="stage-cell"></div>`; });
+  STAGES.forEach(s => {
+    let cells = '';
+    (s.aiAgents || []).forEach(a => {
+      cells += `
+        <div class="agent-card" data-stage="${s.id}" data-agent="${esc(a.title)}" title="${esc(a.title)}" role="button" tabindex="0">
+          <div class="agent-card-header"><img src="AIAgent.png" alt="" class="agent-icon"><div class="w-card-title">${esc(a.title)}</div></div>
+        </div>`;
+    });
+    html += `<div class="stage-cell agents-cell" data-sid="${s.id}">${cells}</div>`;
+  });
 
   // Integration layer strip
   html += `
@@ -1173,10 +1258,10 @@ function renderGrid() {
       </div>
       <div class="integration-desc">Connects with your existing university and government systems — no rip and replace. The accelerator integrates with your Student Management System, government portals, and specialist platforms via standard APIs and connectors.</div>
       <div class="integration-tags">
-        <span class="integration-tag">Student Management System</span>
+        <span class="integration-tag">Student Management System (StudentOne, PeopleSoft, etc.)</span>
         <span class="integration-tag">StudyLink</span>
-        <span class="integration-tag">Placement System</span>
-        <span class="integration-tag">VeVo</span>
+        <span class="integration-tag">Placement System (InPlace, Sonia, etc.)</span>
+        <span class="integration-tag">VEVO</span>
         <span class="integration-tag">USI</span>
         <span class="integration-tag">LMS</span>
         <span class="integration-tag">Finance System</span>
@@ -1194,6 +1279,10 @@ function renderGrid() {
   document.querySelectorAll('[data-common]').forEach(el => {
     el.addEventListener('click', () => openCommonFeat(el.dataset.common));
     el.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') openCommonFeat(el.dataset.common); });
+  });
+  document.querySelectorAll('[data-agent]').forEach(el => {
+    el.addEventListener('click', () => openAgent(el.dataset.stage, el.dataset.agent));
+    el.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') openAgent(el.dataset.stage, el.dataset.agent); });
   });
   document.getElementById('integrationRow').addEventListener('click', openIntegration);
   document.getElementById('integrationRow').addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') openIntegration(); });
@@ -1258,9 +1347,10 @@ function openStaffExp(stageId) {
   openPanel();
 }
 
-function openAgent(stageId) {
+function openAgent(stageId, agentTitle) {
   const stage = STAGES.find(s => s.id === stageId);
-  const a = stage.aiAgent;
+  const a = (stage.aiAgents || []).find(x => x.title === agentTitle);
+  if (!a) return;
 
   document.getElementById('panelEyebrow').textContent = stage.title + ' \u00b7 AI Agent';
   document.getElementById('panelTitle').textContent = a.title;
