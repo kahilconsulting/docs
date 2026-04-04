@@ -12,6 +12,8 @@
       background: #F6F8FB;
       color: #111827;
       min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
 
     /* ── Header ── */
@@ -19,6 +21,7 @@
       background: #fff;
       border-bottom: 1px solid #E2E8F0;
       padding: 28px 40px 24px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
     }
     .page-header h1 {
       font-size: 30px;
@@ -39,10 +42,12 @@
       background: #fff;
       border-top: 1px solid #E2E8F0;
       padding: 20px 40px;
+      box-shadow: 0 -2px 12px rgba(0,0,0,0.06);
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: center;
       gap: 16px;
+      flex: 1;
     }
     .footer-label {
       font-size: 11px;
@@ -57,9 +62,42 @@
     .brand-sep { width: 1px; height: 26px; background: #E2E8F0; flex-shrink: 0; }
     .partner-logo { height: 30px; width: auto; display: block; }
 
+    /* ── Journey bar ── */
+    .journey-bar {
+      border-bottom: 0px solid #E2E8F0;
+      padding-top: 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .journey-bar::before,
+    .journey-bar::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+    }
+    .journey-bar::before {
+      background: linear-gradient(to right, transparent, rgba(17,24,39,0.15));
+    }
+    .journey-bar::after {
+      background: linear-gradient(to left, transparent, rgba(17,24,39,0.15));
+    }
+    .journey-bar-label {
+      font-size: 10px;
+      font-weight: 700;
+      color: rgba(17,24,39,0.4);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      white-space: nowrap;
+    }
+    .journey-bar-arrow {
+      font-size: 16px;
+      color: rgba(17,24,39,0.25);
+    }
+
     /* ── Lifecycle container ── */
     .lifecycle-wrap {
-      padding: 28px 24px 48px;
+      padding: 24px 24px;
       overflow-x: auto;
     }
 
@@ -75,59 +113,81 @@
       box-shadow: 0 2px 12px rgba(0,0,0,0.05);
     }
 
+
+    /* ── Stage header cells ── */
+    .stage-header {
+      background: #fff;
+      border-bottom: 2px solid #E2E8F0;
+      padding: 16px 14px 14px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+    }
+    .stage-header::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: #111827;
+    }
+    .stage-num {
+      font-size: 9px;
+      font-weight: 700;
+      color: rgba(17,24,39,0.3);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .stage-name {
+      font-size: 13px;
+      font-weight: 700;
+      color: #111827;
+      line-height: 1.3;
+      margin-bottom: 5px;
+    }
+    .stage-tagline {
+      font-size: 11px;
+      color: rgba(17,24,39,0.45);
+      line-height: 1.4;
+    }
+
     /* ── Row label cells ── */
     .row-label {
       background: #fff;
+      border-right: 1px solid #E2E8F0;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 12px 8px;
+      padding: 10px 6px;
     }
     .row-label span {
-      font-size: 11px;
-      font-weight: 600;
-      color: #111827;
+      font-size: 9px;
+      font-weight: 700;
+      color: rgba(17,24,39,0.45);
       text-align: center;
       line-height: 1.35;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
     }
     .row-label.top-corner {
       background: #fff;
       border-bottom: 2px solid #E2E8F0;
     }
 
-    /* ── Stage header cells ── */
-    .stage-header {
-      padding: 14px 10px;
-      border-bottom: 2px solid #E2E8F0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #fff;
-    }
-    .stage-pill {
-      background: #111827;
-      color: #fff;
-      font-size: 11px;
-      font-weight: 600;
-      padding: 7px 12px;
-      border-radius: 999px;
-      text-align: center;
-      line-height: 1.3;
-      letter-spacing: 0.1px;
-    }
-
     /* ── Content cells ── */
     .stage-cell { padding: 12px 10px; }
 
-    /* ── Key activity cards ── */
+    /* ── Feature cards ── */
     .w-card {
       background: #fff;
       border: 1px solid #E2E8F0;
+      border-left: 3px solid #E2E8F0;
       border-radius: 7px;
       padding: 9px 11px;
       margin-bottom: 7px;
       cursor: pointer;
-      transition: border-color 0.15s, box-shadow 0.15s, transform 0.12s;
+      transition: box-shadow 0.15s, transform 0.12s;
       user-select: none;
     }
     .w-card:last-of-type { margin-bottom: 0; }
@@ -135,6 +195,18 @@
       border-color: #1F7F7D;
       box-shadow: 0 3px 10px rgba(47,166,164,0.12);
       transform: translateY(-1px);
+    }
+    .w-card.w-card-system {
+      background: rgba(30,41,59,0.04);
+      border: 1px solid rgba(30,41,59,0.18) !important;
+      border-left: 3px solid rgba(30,41,59,0.28) !important;
+      cursor: default;
+    }
+    .w-card.w-card-system .w-card-title { color: #334155; }
+    .w-card.w-card-system:hover {
+      transform: none;
+      box-shadow: none !important;
+      border-color: rgba(30,41,59,0.18) !important;
     }
     .w-card-title {
       font-size: 12px;
@@ -173,83 +245,73 @@
       letter-spacing: 0;
     }
 
-    /* ── Student actions card ── */
-    .student-card {
-      border: 1.5px dashed rgba(47,166,164,0.45);
+    /* ── Common Features card ── */
+    .common-feat-card {
+      border: 1px solid #E2E8F0;
+      border-left: 3px solid #72D4CF;
       border-radius: 7px;
       padding: 9px 11px;
       cursor: pointer;
-      background: rgba(221,242,241,0.5);
-      transition: border-color 0.15s, background 0.15s;
+      background: #fff;
+      transition: box-shadow 0.15s, transform 0.12s;
       user-select: none;
     }
-    .student-card:hover {
-      border-color: #2FA6A4;
-      background: rgba(47,166,164,0.1);
+    .common-feat-card:hover {
+      border-color: #4DBDB8;
+      box-shadow: 0 3px 10px rgba(114,212,207,0.2);
+      transform: translateY(-1px);
     }
-    .student-eyebrow {
+    .common-feat-eyebrow {
       font-size: 8px;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 1.2px;
-      color: #2FA6A4;
+      color: #4DBDB8;
       margin-bottom: 3px;
     }
-    .student-card .w-card-title { margin-bottom: 0; }
+    .common-feat-card .w-card-title { margin-bottom: 0; }
 
-    /* ── Staff prepare card ── */
-    .staff-card {
-      border: 1.5px dashed #c8cdd8;
-      border-radius: 7px;
-      padding: 9px 11px;
-      cursor: pointer;
-      background: #F6F8FB;
-      transition: border-color 0.15s, background 0.15s;
-      user-select: none;
+    /* ── Common Features spanning cell ── */
+    .common-feat-span {
+      grid-column: 2 / -1;
+      padding: 12px 10px;
+      display: flex;
+      gap: 10px;
     }
-    .staff-card:hover {
-      border-color: #1F7F7D;
-      background: rgba(47,166,164,0.06);
+    .common-feat-span .common-feat-card {
+      flex: 1;
     }
-    .staff-eyebrow {
-      font-size: 8px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 1.2px;
-      color: rgba(17,24,39,0.5);
-      margin-bottom: 3px;
-    }
-    .staff-card .w-card-title { margin-bottom: 0; }
 
-    /* ── Outcome card ── */
-    .outcome-card {
-      background: rgba(47,166,164,0.06);
-      border: 1px solid rgba(47,166,164,0.28);
+    /* ── AI Agent card ── */
+    .agent-card {
+      background: rgba(67,56,202,0.07);
+      border: 1.5px solid rgba(67,56,202,0.25);
       border-radius: 7px;
       padding: 9px 11px;
       cursor: pointer;
       transition: border-color 0.15s, background 0.15s;
       user-select: none;
     }
-    .outcome-card:hover {
-      border-color: #2FA6A4;
-      background: rgba(47,166,164,0.12);
+    .agent-card:hover {
+      border-color: #4338CA;
+      background: rgba(67,56,202,0.13);
     }
-    .outcome-eyebrow {
+    .agent-eyebrow {
       font-size: 8px;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 1.2px;
-      color: #2FA6A4;
+      color: #4338CA;
       margin-bottom: 3px;
     }
-    .outcome-card .w-card-title { margin-bottom: 0; }
+    .agent-card .w-card-title { margin-bottom: 0; }
 
-    /* ── Student Support strip ── */
-    .support-row {
+
+    /* ── Integration layer strip ── */
+    .integration-row {
       grid-column: 1 / -1;
-      border-top: 2px solid #2FA6A4;
-      background: rgba(47,166,164,0.04);
+      border-top: 2px solid #334155;
+      background: rgba(30,41,59,0.04);
       padding: 14px 20px;
       display: flex;
       align-items: center;
@@ -258,36 +320,36 @@
       cursor: pointer;
       transition: background 0.15s;
     }
-    .support-row:hover { background: rgba(47,166,164,0.09); }
-    .support-label { flex-shrink: 0; min-width: 160px; }
-    .support-eyebrow {
+    .integration-row:hover { background: rgba(30,41,59,0.08); }
+    .integration-label { flex-shrink: 0; min-width: 160px; }
+    .integration-eyebrow {
       font-size: 9px;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 1.2px;
-      color: #2FA6A4;
+      color: #334155;
       margin-bottom: 3px;
     }
-    .support-title {
+    .integration-title {
       font-size: 13px;
       font-weight: 700;
       color: #111827;
       line-height: 1.3;
     }
-    .support-desc {
+    .integration-desc {
       font-size: 12px;
       color: rgba(17,24,39,0.65);
       line-height: 1.55;
       flex: 1;
       min-width: 220px;
     }
-    .support-tags { display: flex; flex-wrap: wrap; gap: 5px; align-items: center; }
-    .support-tag {
+    .integration-tags { display: flex; flex-wrap: wrap; gap: 5px; align-items: center; }
+    .integration-tag {
       font-size: 10px;
       font-weight: 600;
-      color: #1F7F7D;
-      background: rgba(47,166,164,0.10);
-      border: 1px solid rgba(47,166,164,0.25);
+      color: #334155;
+      background: rgba(30,41,59,0.07);
+      border: 1px solid rgba(30,41,59,0.18);
       padding: 3px 9px;
       border-radius: 999px;
       white-space: nowrap;
@@ -307,19 +369,26 @@
     /* ── Detail panel ── */
     .detail-panel {
       position: fixed;
-      top: 0;
-      right: -540px;
-      width: 500px;
-      max-width: 96vw;
-      height: 100vh;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -62%);
+      opacity: 0;
+      pointer-events: none;
+      width: 80vw;
+      height: 80vh;
       background: #fff;
-      box-shadow: -4px 0 32px rgba(0,0,0,0.10);
+      border-radius: 14px;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.16);
       z-index: 101;
       display: flex;
       flex-direction: column;
-      transition: right 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s;
     }
-    .detail-panel.open { right: 0; }
+    .detail-panel.open {
+      transform: translate(-50%, -50%);
+      opacity: 1;
+      pointer-events: auto;
+    }
 
     .panel-header {
       padding: 22px 22px 16px;
@@ -437,7 +506,7 @@
     @media (max-width: 768px) {
       .page-header { padding: 20px 16px 18px; }
       .lifecycle-wrap { padding: 16px 10px 32px; }
-      .detail-panel { width: 100vw; right: -100vw; }
+      .detail-panel { width: 96vw; height: 90vh; }
     }
   </style>
 </head>
@@ -447,6 +516,10 @@
   <h1>StudentFlow XP</h1>
   <p class="platform-tag">Modern Student Lifecycle Platform to manage the entire Student Journey</p>
 </header>
+
+<div class="journey-bar">
+  <span class="journey-bar-label">➝  Student Lifecycle Journey  ➝</span>
+</div>
 
 <div class="lifecycle-wrap">
   <div class="lifecycle-grid" id="lifecycleGrid"></div>
@@ -470,317 +543,335 @@
 const STAGES = [
   {
     id: 'nurture',
-    title: 'Nurture & Enquiry',
-    outcomeSummary: 'Qualified prospect record',
-    studentActionsSummary: 'Prospect Self-Service',
-    staffPrepareSummary: 'Enquiry & lead management',
-    activities: [
+    title: 'Nurture',
+    tagline: 'Attract and engage prospective students',
+    studentExpSummary: 'Prospect Self-Service',
+    staffExpSummary: 'Prospect & Campaign Management',
+    features: [
       {
-        title: 'Course Discovery',
-        platform: 'pages',
-        type: 'Self-service',
-        desc: 'Prospective students browse courses, entry requirements, fees, and campus information through a public-facing portal.',
-        sections: [{ head: null, items: [
-          'Browse full course catalogue with filtering by faculty, study mode, and duration',
-          'View entry requirements, fees, and key dates for each course',
-          'Compare courses and save favourites to a personal watchlist',
-          'Access campus information, virtual tours, and life at university content'
-        ]}]
-      },
-      {
-        title: 'Enquiry Management',
+        title: 'Student Journey & Segmentation',
         platform: 'apps',
         type: 'Staff portal',
-        desc: 'Staff capture, assign, and track all inbound enquiries; log interactions; set follow-up tasks.',
+        desc: 'Track and segment prospective students across the nurture journey, from first touch through to enquiry, with a unified prospect record and engagement scoring.',
         sections: [{ head: null, items: [
-          'Centralised inbox for all inbound enquiries across web, phone, and chat channels',
-          'Assign enquiries to the right advisor or faculty based on course interest',
-          'Log all interactions and set follow-up tasks with due dates',
-          'Track engagement score and flag high-intent prospects for priority outreach',
-          'Reporting on enquiry volumes, response times, and conversion rates'
+          'Unified prospect profile capturing all interactions, interests, and touchpoints',
+          'Segment prospects by course interest, geography, study mode, and engagement level',
+          'Lifecycle stage tracking from anonymous visitor through to enrolled student',
+          'Engagement scoring to prioritise high-intent prospects for outreach',
+          'Pipeline reporting showing prospect-to-applicant conversion by segment and faculty'
         ]}]
       },
       {
-        title: 'AI Enquiry Agent',
-        platform: 'agent',
-        type: 'AI-assisted',
-        desc: 'Answers common questions about courses, entry requirements, and processes 24/7; captures lead details; escalates to staff when needed.',
+        title: 'Marketing Activities',
+        platform: 'apps',
+        type: 'Staff portal',
+        desc: 'Plan, execute, and track multi-channel marketing activities including email campaigns, phone calls, and appointments across the prospect journey.',
         sections: [{ head: null, items: [
-          'Available 24/7 via the university website and student portal',
-          'Answers questions about courses, entry requirements, fees, and key dates',
-          'Captures prospect name, email, and course interest to create a lead record',
-          'Books appointments with advisors for complex or high-intent enquiries',
-          'Escalates to a live advisor when the enquiry cannot be resolved by AI'
+          'Send and track personalised email campaigns to segmented prospect lists',
+          'Log phone calls and record outcomes against the prospect record',
+          'Schedule and manage appointments with prospective students and their families',
+          'Automated follow-up sequences triggered by prospect behaviour and milestones',
+          'Reporting on campaign performance, open rates, and conversion outcomes'
         ]}]
       },
       {
-        title: 'Open Day & Event Registration',
+        title: 'Website Activity Tracking',
         platform: 'pages',
         type: 'Self-service',
-        desc: 'Prospective students register for open days, campus tours, and information sessions.',
+        desc: 'Capture and analyse prospect behaviour on the university website and portal, linking activity to individual records to inform outreach and personalisation.',
         sections: [{ head: null, items: [
-          'Browse upcoming open days, information sessions, and campus tours',
-          'Register and receive confirmation and calendar invite',
+          'Track page visits, course views, and time-on-page at the prospect level',
+          'Link anonymous web activity to a prospect record on form submission or login',
+          'Trigger automated outreach when prospects view high-intent pages (e.g. apply now)',
+          'Surface website activity in the prospect profile for advisor context',
+          'Aggregate reporting on content engagement and course interest trends'
+        ]}]
+      },
+      {
+        title: 'Event Management',
+        platform: 'pages',
+        type: 'Self-service',
+        desc: 'Manage the full lifecycle of recruitment events — open days, campus tours, webinars, and information sessions — from registration through to post-event follow-up.',
+        sections: [{ head: null, items: [
+          'Browse and register for upcoming open days, campus tours, and information sessions',
+          'Receive confirmation emails and calendar invites on registration',
           'Manage registrations — update, cancel, or transfer to a different date',
-          'Receive automated reminders and post-event follow-up communications'
+          'Staff manage event capacity, waitlists, and on-the-day attendance',
+          'Automated post-event follow-up sequences and satisfaction surveys'
         ]}]
       }
     ],
-    studentActions: {
+    studentExperiences: {
       title: 'Prospect Self-Service',
-      desc: 'What a prospective student can do independently before speaking to anyone.',
+      desc: 'What a prospective student can do independently during the nurture phase.',
       items: [
         'Browse courses and entry requirements on the public portal',
-        'Submit an enquiry via web form or chat with the AI agent',
         'Register for an open day or campus tour',
-        'Track responses to their enquiry'
+        'Save course favourites and return to compare options',
+        'Access study guides, course finders, and comparison tools'
       ]
     },
-    staffPrepare: [
-      'Review and qualify inbound enquiries from all channels',
-      'Assign enquiries to the right advisor or faculty',
-      'Prepare personalised follow-up communications',
-      'Log all prospect interactions in the CRM record',
-      'Monitor engagement and flag high-intent prospects'
-    ],
-    outcomes: [
-      'A qualified prospect record with full enquiry history',
-      'Advisor assigned and follow-up scheduled',
-      "Prospect's course interests and intent captured",
-      'Engagement score to prioritise outreach'
-    ]
+    staffExperiences: {
+      title: 'Prospect & Campaign Management',
+      desc: 'How marketing and recruitment staff attract and engage prospective students.',
+      items: [
+        'Segment prospects by course interest, geography, and engagement level',
+        'Plan and execute email campaigns and follow-up sequences',
+        'Track website activity and surface high-intent prospects',
+        'Manage event registrations and post-event follow-up',
+        'Report on campaign performance and prospect-to-enquiry conversion'
+      ]
+    },
+    aiAgent: {
+      title: 'Prospect Engagement Agent',
+      desc: 'Available on the university website to surface relevant course information, capture prospect interest, and guide visitors toward making an enquiry.',
+      sections: [{ head: null, items: [
+        'Available 24/7 via the university website and public portal',
+        'Answers questions about courses, campus life, and open day events',
+        'Captures prospect name, email, and course interest to create a lead record',
+        'Guides high-intent prospects toward submitting a formal enquiry',
+        'Escalates to a live advisor when the prospect requests personal guidance'
+      ]}]
+    }
   },
   {
-    id: 'admissions',
-    title: 'Applications & Admissions',
-    outcomeSummary: 'Offer issued & accepted',
-    studentActionsSummary: 'Applicant Self-Service',
-    staffPrepareSummary: 'Application review & offers',
-    activities: [
+    id: 'enquiry',
+    title: 'Enquiry',
+    tagline: 'Capture and resolve inbound interest',
+    studentExpSummary: 'Prospect Self-Service',
+    staffExpSummary: 'Enquiry Management',
+    features: [
       {
-        title: 'Online Application',
-        platform: 'pages',
-        type: 'Self-service',
-        desc: 'Students complete and submit their full application including personal details, academic history, supporting statements, and required documents.',
-        sections: [{ head: null, items: [
-          'Step-by-step guided application form with save-and-return capability',
-          'Personal details, academic history, and supporting statement sections',
-          'Document upload for transcripts, identification, and references',
-          'Application summary and confirmation on submission',
-          'Real-time validation to flag incomplete sections before submission'
-        ]}]
-      },
-      {
-        title: 'Document Management',
-        platform: 'pages',
-        type: 'Self-service',
-        desc: 'Secure upload of transcripts, identification, references, and any required evidence; status visible to applicant.',
-        sections: [{ head: null, items: [
-          'Upload documents against each required evidence type',
-          'Track the status of each document — received, under review, accepted, or rejected',
-          'Receive notifications when additional documents are requested',
-          'Resubmit documents if rejected with guidance on what is needed'
-        ]}]
-      },
-      {
-        title: 'Admissions Review',
+        title: 'Enquiry & Knowledge Management',
         platform: 'apps',
         type: 'Staff portal',
-        desc: 'Admissions staff assess applications, request additional information, record decisions, and manage offer workflows.',
+        desc: 'Capture, assign, and resolve inbound enquiries while maintaining a centralised knowledge base that powers consistent answers across staff and AI channels.',
         sections: [{ head: null, items: [
-          'Review queue with priority sorting by deadline and course capacity',
-          'Assess applications against eligibility criteria with structured decision recording',
-          'Request additional information or documents directly from the applicant',
-          'Generate conditional or unconditional offer letters',
-          'Manage offer acceptance deadlines and follow up on outstanding responses',
-          'Reporting on application volumes, decisions, and conversion by course'
+          'Centralised inbox for all inbound enquiries across web, phone, email, and chat',
+          'Assign enquiries to the right advisor or faculty and track to resolution',
+          'Log all interactions and set follow-up tasks with due dates and reminders',
+          'Searchable knowledge base of FAQs, policies, and course information for staff',
+          'Knowledge articles surfaced automatically by the AI Enquiry Agent in conversations'
         ]}]
       },
       {
-        title: 'AI Admissions Agent',
-        platform: 'agent',
-        type: 'AI-assisted',
-        desc: 'Guides applicants through requirements, answers status questions, and flags incomplete applications before submission.',
+        title: 'Student Survey',
+        platform: 'pages',
+        type: 'Self-service',
+        desc: 'Collect structured feedback and preference data from prospective students to personalise outreach, improve recruitment activities, and inform course planning.',
         sections: [{ head: null, items: [
-          'Explains entry requirements for each course and study mode',
-          'Guides applicants through the document requirements for their situation',
-          'Answers status questions — where is my application, what is needed next?',
-          'Flags incomplete or inconsistent sections before the applicant submits',
-          'Escalates complex eligibility questions to an admissions officer'
+          'Send targeted surveys to prospects at key points in the nurture journey',
+          'Capture course preferences, study mode, and motivation data',
+          'Collect post-event satisfaction feedback automatically after open days',
+          'Survey responses linked to the prospect record for advisor context',
+          'Aggregate reporting on prospect sentiment and course demand trends'
         ]}]
       }
     ],
-    studentActions: {
+    studentExperiences: {
+      title: 'Prospect Self-Service',
+      desc: 'What a prospective student can do independently when making an enquiry.',
+      items: [
+        'Submit an enquiry via web form or chat with the AI agent',
+        'Track responses to their enquiry',
+        'Complete a course preference and interest survey',
+        'Browse FAQs and knowledge articles for instant answers'
+      ]
+    },
+    staffExperiences: {
+      title: 'Enquiry Management',
+      desc: 'How admissions and recruitment staff handle and resolve inbound enquiries.',
+      items: [
+        'Review and qualify inbound enquiries from all channels',
+        'Assign enquiries to the right advisor or faculty',
+        'Log all prospect interactions in the CRM record',
+        'Monitor engagement scores and flag high-intent prospects',
+        'Manage post-survey follow-up and personalised outreach'
+      ]
+    },
+    aiAgent: {
+      title: 'AI Enquiry Agent',
+      desc: 'Answers common questions about courses, entry requirements, and processes 24/7; captures lead details; escalates to staff when needed.',
+      sections: [{ head: null, items: [
+        'Available 24/7 via the university website and public portal',
+        'Answers questions about courses, entry requirements, fees, and key dates',
+        'Captures prospect name, email, and course interest to create a lead record',
+        'Books appointments with advisors for complex or high-intent enquiries',
+        'Escalates to a live advisor when the enquiry cannot be resolved by AI'
+      ]}]
+    }
+  },
+  {
+    id: 'application',
+    title: 'Application',
+    tagline: 'Streamlined application processing',
+    studentExpSummary: 'Applicant Self-Service',
+    staffExpSummary: 'Application Review',
+    features: [
+      {
+        title: 'Student Applications to Study',
+        platform: 'pages',
+        type: 'Self-service',
+        desc: 'A guided, end-to-end online application experience covering personal details, academic history, supporting documents, and submission — with full status visibility for applicants and staff.',
+        sections: [{ head: null, items: [
+          'Step-by-step application form with save-and-return capability',
+          'Personal details, academic history, and supporting statement sections',
+          'Secure document upload for transcripts, identification, and references',
+          'Real-time validation to flag incomplete sections before submission',
+          'Admissions staff review queue with structured eligibility assessment and decision recording',
+          'Reporting on application volumes, decisions, and conversion rates by course and faculty'
+        ]}]
+      },
+      {
+        title: 'Scholarship Application Management',
+        platform: 'pages',
+        type: 'Self-service',
+        desc: 'Allow students to discover, apply for, and track scholarship opportunities — while staff manage eligibility assessment, awarding, and disbursement workflows.',
+        sections: [{ head: null, items: [
+          'Browse available scholarships with eligibility criteria and application deadlines',
+          'Submit scholarship applications with supporting statements and evidence',
+          'Track scholarship application status in real time',
+          'Staff assess applications against criteria and record award decisions',
+          'Automate award notifications and conditions to successful applicants',
+          'Track disbursement schedules and link to student financial records'
+        ]}]
+      }
+    ],
+    studentExperiences: {
       title: 'Applicant Self-Service',
       desc: 'What the applicant manages independently through the portal.',
       items: [
-        'Complete and submit the application form',
-        'Upload supporting documents',
+        'Complete and submit the application form online',
+        'Upload and manage supporting documents',
         'Track application status in real time',
         'Respond to requests for additional information',
-        'Accept or decline an offer'
+        'Apply for scholarships and track award status'
       ]
     },
-    staffPrepare: [
-      'Review submitted applications against eligibility criteria',
-      'Request missing documents or clarifications from applicants',
-      'Record assessment decisions and recommendations',
-      'Generate conditional or unconditional offers',
-      'Monitor acceptance deadlines and follow up on outstanding offers'
-    ],
-    outcomes: [
-      'A complete, assessed application record',
-      'Offer issued and acceptance status confirmed',
-      'Any conditions cleared and documented',
-      'Student record created and ready for enrolment'
-    ]
+    staffExperiences: {
+      title: 'Application Review',
+      desc: 'How admissions staff manage the application intake and initial assessment process.',
+      items: [
+        'Review submitted applications against eligibility criteria',
+        'Request missing documents or clarifications from applicants',
+        'Record assessment decisions and recommendations',
+        'Manage scholarship assessments and award decisions',
+        'Report on application volumes and conversion by course and faculty'
+      ]
+    },
+    aiAgent: {
+      title: 'AI Application Agent',
+      desc: 'Guides applicants through requirements, answers status questions, and flags incomplete applications before submission.',
+      sections: [{ head: null, items: [
+        'Explains entry requirements for each course and study mode',
+        'Guides applicants through the document requirements for their situation',
+        'Answers status questions — where is my application, what is needed next?',
+        'Flags incomplete or inconsistent sections before the applicant submits',
+        'Escalates complex eligibility questions to an admissions officer'
+      ]}]
+    }
   },
   {
-    id: 'enrolment',
-    title: 'Enrolment & Onboarding',
-    outcomeSummary: 'Active enrolled student',
-    studentActionsSummary: 'New Student Self-Service',
-    staffPrepareSummary: 'Enrolment & onboarding setup',
-    activities: [
+    id: 'admission',
+    title: 'Admission & Assessment',
+    tagline: 'Assess eligibility and issue offers',
+    studentExpSummary: 'Applicant Self-Service',
+    staffExpSummary: 'Assessment & Offer Management',
+    features: [
       {
-        title: 'Course Enrolment',
-        platform: 'pages',
-        type: 'Self-service',
-        desc: 'Students select and enrol in their courses and units for the upcoming study period, subject to availability and prerequisites.',
-        sections: [{ head: null, items: [
-          'Browse available courses and units with prerequisite checking',
-          'Select and confirm enrolment for the upcoming study period',
-          'View and manage timetable conflicts before confirming',
-          'Receive enrolment confirmation and fee invoice'
-        ]}]
-      },
-      {
-        title: 'Student Onboarding Portal',
-        platform: 'pages',
-        type: 'Self-service',
-        desc: 'Guided onboarding checklist covering IT account setup, ID card collection, compliance modules, key dates, and introduction to services.',
-        sections: [{ head: 'Checklist items', items: [
-          'Activate university IT accounts and student email',
-          'Complete mandatory orientation and compliance modules',
-          'Download or collect student ID card',
-          'Review timetable and add key dates to calendar',
-          'Explore student support services and how to access them'
-        ]}]
-      },
-      {
-        title: 'Onboarding Administration',
+        title: 'Credit Transfer & RPL Management',
         platform: 'apps',
         type: 'Staff portal',
-        desc: 'Staff manage student records, confirm enrolment, assign advisors, track onboarding task completion, and flag outstanding items.',
+        desc: 'Manage applications for credit transfer and Recognition of Prior Learning — capturing evidence, routing for academic assessment, and recording approved exemptions against the student record.',
         sections: [{ head: null, items: [
-          'Confirm enrolment and activate student record across connected systems',
-          'Assign personal advisor or faculty contact to each new student',
-          'Monitor onboarding checklist completion across the new cohort',
-          'Flag students with outstanding tasks and send automated reminders',
-          'Manage exceptions — late enrolments, credit transfers, special arrangements'
+          'Students submit credit transfer or RPL applications with supporting evidence online',
+          'Route applications to the relevant faculty or academic assessor for review',
+          'Record assessment outcomes — approved, partially approved, or declined',
+          'Apply approved credits and exemptions directly to the student enrolment record',
+          'Maintain audit trail of all credit decisions for compliance and reporting',
+          'Reporting on RPL and credit transfer volumes, approval rates, and processing times'
         ]}]
       },
       {
-        title: 'Orientation Agent',
-        platform: 'agent',
-        type: 'AI-assisted',
-        desc: 'Answers new student questions about campus, systems, and processes; guides students through their onboarding checklist step by step.',
+        title: 'Government Support Payment Management',
+        platform: 'apps',
+        type: 'Staff portal',
+        desc: 'Manage student eligibility, enrolment reporting, and compliance requirements for government-funded support schemes and tuition assistance programs.',
         sections: [{ head: null, items: [
-          'Guides new students through each step of the onboarding checklist',
-          'Answers questions about IT setup, campus navigation, and key dates',
-          'Explains available student services and how to access each one',
-          'Proactively checks in with students who have incomplete checklist items',
-          'Escalates welfare concerns to the Student Support team'
+          'Capture and verify student eligibility for government funding schemes',
+          'Generate and submit enrolment and completion reports to funding bodies',
+          'Track government payment receipts and reconcile against student records',
+          'Manage compliance obligations and documentation for audits',
+          'Alert staff to changes in student status that may affect funding eligibility',
+          'Reporting on funded student cohorts, payment status, and compliance metrics'
+        ]}]
+      },
+      {
+        title: 'Offer Management',
+        platform: 'apps',
+        type: 'Staff portal',
+        desc: 'Generate, issue, and track conditional and unconditional offers through to acceptance or decline, with automated reminders and enrolment handoff.',
+        sections: [{ head: null, items: [
+          'Generate conditional or unconditional offer letters from approved templates',
+          'Issue offers to applicants with a deadline for acceptance',
+          'Track acceptance status and send automated reminders before the deadline',
+          'Record acceptance and trigger the enrolment process for accepted offers',
+          'Manage declined offers and trigger alternative pathway communications',
+          'Reporting on offer conversion rates by course, faculty, and applicant segment'
         ]}]
       }
     ],
-    studentActions: {
-      title: 'New Student Self-Service',
-      desc: 'What the new student completes independently to become fully active.',
+    studentExperiences: {
+      title: 'Applicant Self-Service',
+      desc: 'What the applicant manages independently during the assessment and offer stage.',
       items: [
-        'Select and enrol in courses for the study period',
-        'Complete online orientation and compliance modules',
-        'Set up university IT accounts and systems access',
-        'Download student ID and collect physical card',
-        'Review timetable and key dates'
+        'Submit credit transfer or RPL applications with supporting evidence',
+        'Track assessment status and receive outcome notifications',
+        'Accept or decline an offer through the portal',
+        'Review conditions attached to a conditional offer',
+        'Access government funding eligibility information and forms'
       ]
     },
-    staffPrepare: [
-      'Confirm enrolment and activate student record in all systems',
-      'Assign personal advisor or faculty contact',
-      'Schedule orientation sessions and send invitations',
-      'Monitor onboarding checklist completion and follow up on outstanding items',
-      'Prepare welcome communications and first-week resources'
-    ],
-    outcomes: [
-      'Active, fully enrolled student record',
-      'All courses confirmed and timetable generated',
-      'Onboarding checklist completed',
-      'Advisor assigned and first contact made',
-      'Student has system access and ID'
-    ]
+    staffExperiences: {
+      title: 'Assessment & Offer Management',
+      desc: 'How admissions and academic staff assess eligibility, manage RPL, and issue offers.',
+      items: [
+        'Assess credit transfer and RPL applications with academic reviewers',
+        'Verify government funding eligibility and manage compliance reporting',
+        'Generate conditional or unconditional offers from approved templates',
+        'Monitor acceptance deadlines and follow up on outstanding offers',
+        'Report on offer conversion rates by course, faculty, and applicant segment'
+      ]
+    },
+    aiAgent: {
+      title: 'AI Admissions Agent',
+      desc: 'Answers questions about assessment outcomes, offer conditions, and next steps; guides applicants through credit transfer requirements and offer acceptance.',
+      sections: [{ head: null, items: [
+        'Explains credit transfer and RPL eligibility requirements and process',
+        'Answers questions about offer conditions and what is required to confirm',
+        'Provides status updates on RPL assessments and offer decisions',
+        'Guides applicants through government funding eligibility and form requirements',
+        'Escalates complex assessment queries to the admissions team'
+      ]}]
+    }
   },
   {
     id: 'study',
     title: 'Study & Engage',
-    outcomeSummary: 'Academic record & progress',
-    studentActionsSummary: 'Student Self-Service',
-    staffPrepareSummary: 'Progress monitoring & results',
-    activities: [
+    tagline: 'Support students through their studies',
+    studentExpSummary: 'Student Self-Service',
+    staffExpSummary: 'Progress Monitoring & Results',
+    features: [
       {
-        title: 'Student Portal',
-        platform: 'pages',
-        type: 'Self-service',
-        desc: 'Central hub for timetables, course materials, assessment deadlines, results, and university communications.',
-        sections: [{ head: null, items: [
-          'View current timetable, course materials, and assessment deadlines',
-          'Access recorded lectures, reading lists, and supplementary resources',
-          'Submit assignments and receive confirmation of receipt',
-          'View grades and feedback as results are published',
-          'Manage personal details, study preferences, and communication settings'
-        ]}]
-      },
-      {
-        title: 'Academic Progress Monitoring',
+        title: 'Managed in other University Systems',
         platform: 'apps',
-        type: 'Staff portal',
-        desc: 'Staff track attendance, assessment submissions, grades, and academic standing; identify and manage at-risk students.',
-        sections: [{ head: null, items: [
-          'Dashboard showing attendance, submission rates, and grades by student and cohort',
-          'Automated at-risk alerts based on configurable thresholds',
-          'Log outreach activities and interventions for at-risk students',
-          'Record and track special consideration requests and outcomes',
-          'Generate academic standing reports for progression decisions'
-        ]}]
-      },
-      {
-        title: 'Assessment & Results Management',
-        platform: 'apps',
-        type: 'Staff portal',
-        desc: 'Record and manage assessment marks, grade approvals, and results publication; manage special consideration requests.',
-        sections: [{ head: null, items: [
-          'Record and moderate assessment marks across marking teams',
-          'Route grades through the approval workflow before publication',
-          'Publish results to the student portal on approval',
-          'Manage special consideration and extension requests with audit trail',
-          'Generate results summaries and grade distributions for quality review'
-        ]}]
-      },
-      {
-        title: 'Study Support Agent',
-        platform: 'agent',
-        type: 'AI-assisted',
-        desc: 'Answers questions about assessment requirements, deadlines, policies, and study resources; books appointments with advisors; escalates concerns to staff.',
-        sections: [{ head: null, items: [
-          'Answers questions about assessment requirements, submission formats, and deadlines',
-          'Explains university policies — extensions, special consideration, academic integrity',
-          'Connects students to relevant study resources and support materials',
-          'Books appointments with academic advisors, tutors, and support services',
-          'Identifies and escalates students showing signs of distress or disengagement'
-        ]}]
+        type: '',
+        system: true,
+        desc: 'Core study and engagement activities are managed within your existing Student Management System and LMS.',
+        sections: [{ head: null, items: [] }]
       }
     ],
-    studentActions: {
+    studentExperiences: {
       title: 'Student Self-Service',
       desc: 'What the student manages through the portal during their studies.',
       items: [
@@ -791,113 +882,36 @@ const STAGES = [
         'Update personal details and communication preferences'
       ]
     },
-    staffPrepare: [
-      'Monitor attendance and flag unexplained absences',
-      'Review and submit assessment marks',
-      'Identify and proactively contact at-risk students',
-      'Process special consideration and extension requests',
-      'Prepare and publish results in line with academic calendar'
-    ],
-    outcomes: [
-      'Up-to-date academic record with grades and attendance',
-      'At-risk students identified and intervention initiated',
-      'Assessment results published and communicated',
-      'Progression decisions recorded for each study period'
-    ]
-  },
-  {
-    id: 'graduation',
-    title: 'Graduation',
-    outcomeSummary: 'Qualification conferred',
-    studentActionsSummary: 'Graduate Self-Service',
-    staffPrepareSummary: 'Completion audit & ceremony',
-    activities: [
-      {
-        title: 'Graduation Application',
-        platform: 'pages',
-        type: 'Self-service',
-        desc: 'Students apply to graduate, confirm personal details, select ceremony preferences, and track their application status.',
-        sections: [{ head: null, items: [
-          'Submit graduation application and confirm legal name for testamur',
-          'Select preferred ceremony — date, time, and campus',
-          'Register guest attendance and manage ticket allocation',
-          'Order academic dress and select hire or purchase options',
-          'Track graduation application status through to approval'
-        ]}]
-      },
-      {
-        title: 'Completion Audit',
-        platform: 'apps',
-        type: 'Staff portal',
-        desc: 'Staff audit course completion requirements, confirm eligibility, manage exceptions, and approve graduation applications.',
-        sections: [{ head: null, items: [
-          "Run automated completion check against each student's academic record",
-          'Review and resolve exceptions — incomplete units, outstanding results, credit gaps',
-          'Record eligibility decision and obtain required academic approvals',
-          'Confirm final graduation list and submit for sign-off',
-          'Notify students of their eligibility status and any outstanding requirements'
-        ]}]
-      },
-      {
-        title: 'Ceremony Management',
-        platform: 'apps',
-        type: 'Staff portal',
-        desc: 'Manage ceremony scheduling, guest ticketing, academic dress orders, and on-the-day logistics.',
-        sections: [{ head: null, items: [
-          'Manage ceremony schedule — dates, venues, capacity, and faculty assignments',
-          'Allocate and issue guest tickets; manage waitlists and cancellations',
-          'Coordinate academic dress orders with supplier',
-          'Prepare order of proceedings and graduate marshalling lists',
-          'Record ceremony attendance and manage on-the-day exceptions'
-        ]}]
-      },
-      {
-        title: 'Graduation Agent',
-        platform: 'agent',
-        type: 'AI-assisted',
-        desc: 'Answers questions about graduation requirements, ceremony logistics, and document issuance; guides students through the application process.',
-        sections: [{ head: null, items: [
-          'Explains graduation eligibility requirements and application process',
-          'Answers questions about ceremony dates, locations, and logistics',
-          'Guides students through academic dress ordering and guest ticket management',
-          'Provides status updates on graduation application and document issuance',
-          'Escalates eligibility queries or exceptions to the graduation team'
-        ]}]
-      }
-    ],
-    studentActions: {
-      title: 'Graduate Self-Service',
-      desc: 'What the graduating student manages independently.',
+    staffExperiences: {
+      title: 'Progress Monitoring & Results',
+      desc: 'How academic and support staff track student progress and manage assessment outcomes.',
       items: [
-        'Apply to graduate and confirm personal details',
-        'Select preferred ceremony and register attendance',
-        'Order academic dress and manage guest tickets',
-        'Download digital transcript and access testamur',
-        'Update post-graduation contact details'
+        'Monitor attendance and flag unexplained absences',
+        'Review and submit assessment marks',
+        'Identify and proactively contact at-risk students',
+        'Process special consideration and extension requests',
+        'Prepare and publish results in line with academic calendar'
       ]
     },
-    staffPrepare: [
-      "Run completion audits against each applicant's academic record",
-      'Resolve any outstanding requirements or exceptions',
-      'Confirm the graduation list and obtain required approvals',
-      'Coordinate ceremony logistics — venue, order of proceedings, academic staff',
-      'Issue testamurs and official transcripts',
-      'Transition completed student records to alumni status'
-    ],
-    outcomes: [
-      'Graduation eligibility confirmed and approved',
-      'Testamur and official transcript issued',
-      'Ceremony attendance recorded',
-      'Student record transitioned to alumni'
-    ]
+    aiAgent: {
+      title: 'Study Support Agent',
+      desc: 'Answers questions about assessment requirements, deadlines, policies, and study resources; books appointments with advisors; escalates concerns to staff.',
+      sections: [{ head: null, items: [
+        'Answers questions about assessment requirements, submission formats, and deadlines',
+        'Explains university policies — extensions, special consideration, academic integrity',
+        'Connects students to relevant study resources and support materials',
+        'Books appointments with academic advisors, tutors, and support services',
+        'Identifies and escalates students showing signs of distress or disengagement'
+      ]}]
+    }
   },
   {
     id: 'alumni',
     title: 'Alumni Management',
-    outcomeSummary: 'Engaged alumni record',
-    studentActionsSummary: 'Alumni Self-Service',
-    staffPrepareSummary: 'Engagement & CPD campaigns',
-    activities: [
+    tagline: 'Engage graduates for life',
+    studentExpSummary: 'Alumni Self-Service',
+    staffExpSummary: 'Engagement & CPD Programs',
+    features: [
       {
         title: 'Alumni Portal',
         platform: 'pages',
@@ -938,20 +952,20 @@ const STAGES = [
         ]}]
       },
       {
-        title: 'Alumni Engagement Agent',
-        platform: 'agent',
-        type: 'AI-assisted',
-        desc: 'Answers questions about alumni benefits, CPD offerings, and events; facilitates reconnection with the university; routes postgraduate enquiries to admissions.',
+        title: 'Knowledge Management',
+        platform: 'pages',
+        type: 'Self-service',
+        desc: 'A centralised hub of alumni resources, benefits guides, and CPD information — surfaced by the AI agent and searchable independently.',
         sections: [{ head: null, items: [
-          'Answers questions about alumni benefits, services, and how to access them',
-          'Provides information on upcoming events and CPD offerings',
-          'Facilitates profile updates and reconnection with the alumni network',
-          'Routes postgraduate study enquiries to the admissions team',
-          'Captures alumni career updates to enrich the database'
+          'Searchable library of alumni benefits, services, and how-to guides',
+          'CPD and continuing education FAQs and eligibility guides',
+          'Career transition resources and industry networking guides',
+          'Mentoring program guidelines and matching criteria',
+          'Content maintained centrally and surfaced in AI agent conversations'
         ]}]
       }
     ],
-    studentActions: {
+    studentExperiences: {
       title: 'Alumni Self-Service',
       desc: 'What alumni manage independently through the portal.',
       items: [
@@ -963,32 +977,94 @@ const STAGES = [
         'Explore postgraduate study options'
       ]
     },
-    staffPrepare: [
-      'Maintain and cleanse the alumni database',
-      'Design and send segmented engagement campaigns',
-      'Track event attendance and engagement metrics',
-      'Manage alumni giving and fundraising programs',
-      'Coordinate mentoring and industry networking programs',
-      'Identify alumni for postgraduate re-engagement pathways'
-    ],
-    outcomes: [
-      'Active, maintained alumni record with career and engagement history',
-      'Alumni engaged with at least one program or event per year',
-      'Postgraduate and CPD pipeline identified',
-      'Alumni net promoter score and engagement rate tracked'
-    ]
+    staffExperiences: {
+      title: 'Engagement & CPD Programs',
+      desc: 'How alumni relations staff manage the database, campaigns, events, and continuing education programs.',
+      items: [
+        'Maintain and cleanse the alumni database',
+        'Design and send segmented engagement campaigns',
+        'Track event attendance and engagement metrics',
+        'Manage alumni giving and fundraising programs',
+        'Coordinate mentoring and industry networking programs',
+        'Identify alumni for postgraduate re-engagement pathways'
+      ]
+    },
+    aiAgent: {
+      title: 'Alumni Engagement Agent',
+      desc: 'Answers questions about alumni benefits, CPD offerings, and events; facilitates reconnection with the university; routes postgraduate enquiries to admissions.',
+      sections: [{ head: null, items: [
+        'Answers questions about alumni benefits, services, and how to access them',
+        'Provides information on upcoming events and CPD offerings',
+        'Facilitates profile updates and reconnection with the alumni network',
+        'Routes postgraduate study enquiries to the admissions team',
+        'Captures alumni career updates to enrich the database'
+      ]}]
+    }
+  }
+];
+
+// ── Common features ───────────────────────────────────────────────────────────
+
+const COMMON_FEATURES = [
+  {
+    title: 'Student 360 View',
+    desc: 'A unified, real-time view of every student across the entire lifecycle — from first enquiry through to alumni. Built on Microsoft Dataverse, the Student 360 View connects every touchpoint into a single student record that powers personalised experiences, proactive support, and data-driven decisions.',
+    sections: [{ head: null, items: [
+      'Unified student profile aggregating data from enquiry, application, enrolment, study, graduation, and alumni stages',
+      'Chronological interaction timeline showing every communication, event, and milestone',
+      'Academic progress, attendance, and at-risk indicators surfaced in one view',
+      'Support case history and active interventions visible to all authorised staff',
+      'Powers AI agent responses with contextually accurate, student-specific information',
+      'Accessible to advisors, academic staff, and support teams based on role permissions'
+    ]}]
+  },
+  {
+    title: 'Reporting & Analytics',
+    desc: 'Cross-lifecycle reporting and analytics providing institutional leaders, faculty, and support teams with real-time visibility into student outcomes, operational performance, and engagement trends — built on Power BI and Microsoft Dataverse.',
+    sections: [{ head: null, items: [
+      'Real-time dashboards for enrolment numbers, application conversion, and at-risk student counts',
+      'Lifecycle funnel reporting from prospect through to alumni engagement',
+      'Academic performance and progression analytics by cohort, faculty, and course',
+      'Support case volumes, response times, and outcome tracking',
+      'Marketing campaign performance and event attendance reporting',
+      'Configurable reports exportable for regulatory compliance and government submissions'
+    ]}]
+  },
+  {
+    title: 'Student Support & Case Management',
+    desc: 'A consistent support layer active across every stage of the lifecycle — covering wellbeing, mental health, financial assistance, disability services, and student advocacy. Staff create, manage, and resolve support cases linked directly to the student record.',
+    sections: [{ head: null, items: [
+      'Create and manage support cases across wellbeing, financial, disability, and advocacy categories',
+      'Assign cases to the appropriate support team member and track to resolution',
+      'Log all interactions, interventions, and outcomes against the case record',
+      'Automated alerts when at-risk signals are detected across academic or engagement data',
+      'Student self-referral via the portal for non-urgent support needs',
+      'Reporting on case volumes, response times, and support outcomes by cohort and stage'
+    ]}]
+  },
+  {
+    title: 'Activity Management & Timeline',
+    desc: 'A centralised activity log and chronological timeline capturing every interaction, task, and milestone across the student lifecycle — giving staff a complete, real-time picture of all engagement and outstanding actions.',
+    sections: [{ head: null, items: [
+      'Log calls, emails, meetings, and notes against any student or prospect record',
+      'Create and assign follow-up tasks with due dates, priority, and ownership',
+      'Chronological timeline view of all activities, communications, and status changes',
+      'Filter activity by type, date range, staff member, or lifecycle stage',
+      'Automated activity entries triggered by key system events (application submitted, offer issued, etc.)',
+      'Visible to all authorised staff for consistent, context-aware student engagement'
+    ]}]
   }
 ];
 
 // ── Stage colours ─────────────────────────────────────────────────────────────
 
 const COLORS = {
-  nurture:    { pill: '#3D7EC8', cardBg: 'rgba(180,215,242,0.42)', cardBorder: 'rgba(61,126,200,0.30)',  hover: '#3D7EC8', shadow: 'rgba(61,126,200,0.14)' },
-  admissions: { pill: '#C96B2A', cardBg: 'rgba(248,196,152,0.42)', cardBorder: 'rgba(201,107,42,0.30)',  hover: '#C96B2A', shadow: 'rgba(201,107,42,0.14)' },
-  enrolment:  { pill: '#8B4EA8', cardBg: 'rgba(210,178,228,0.42)', cardBorder: 'rgba(139,78,168,0.30)',  hover: '#8B4EA8', shadow: 'rgba(139,78,168,0.14)' },
-  study:      { pill: '#B8860B', cardBg: 'rgba(250,226,140,0.45)', cardBorder: 'rgba(184,134,11,0.30)',  hover: '#B8860B', shadow: 'rgba(184,134,11,0.14)' },
-  graduation: { pill: '#28855A', cardBg: 'rgba(178,222,196,0.42)', cardBorder: 'rgba(40,133,90,0.30)',   hover: '#28855A', shadow: 'rgba(40,133,90,0.14)'  },
-  alumni:     { pill: '#546AA0', cardBg: 'rgba(188,198,232,0.42)', cardBorder: 'rgba(84,106,160,0.30)',  hover: '#546AA0', shadow: 'rgba(84,106,160,0.14)' }
+  nurture:     { pill: '#FF8FAB', shadow: 'rgba(255,143,171,0.2)'  }, // pastel pink
+  enquiry:     { pill: '#FFB085', shadow: 'rgba(255,176,133,0.2)'  }, // pastel peach
+  application: { pill: '#FFD97D', shadow: 'rgba(255,217,125,0.2)'  }, // pastel yellow
+  admission:   { pill: '#80D8A8', shadow: 'rgba(128,216,168,0.2)'  }, // pastel mint
+  study:       { pill: '#7EC8E3', shadow: 'rgba(126,200,227,0.2)'  }, // pastel sky blue
+  alumni:      { pill: '#B8A0D8', shadow: 'rgba(184,160,216,0.2)'  }, // pastel lavender
 };
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
@@ -1018,9 +1094,9 @@ function injectStageStyles() {
     const c = COLORS[s.id];
     if (!c) return;
     css += `
-      .stage-header[data-sid="${s.id}"] .stage-pill { background: ${c.pill}; }
-      [data-sid="${s.id}"] .w-card { background: ${c.cardBg}; border-color: ${c.cardBorder}; }
-      [data-sid="${s.id}"] .w-card:hover { border-color: ${c.hover}; box-shadow: 0 3px 10px ${c.shadow}; }
+      .stage-header[data-sid="${s.id}"]::before { background: ${c.pill}; }
+      [data-sid="${s.id}"] .w-card { border-left-color: ${c.pill}; }
+      [data-sid="${s.id}"] .w-card:hover { box-shadow: 0 3px 10px ${c.shadow}; }
     `;
   });
   const el = document.createElement('style');
@@ -1034,102 +1110,79 @@ function renderGrid() {
 
   // Header row
   html += `<div class="row-label top-corner"></div>`;
-  STAGES.forEach(s => {
-    html += `<div class="stage-header" data-sid="${s.id}"><div class="stage-pill">${esc(s.title)}</div></div>`;
+  STAGES.forEach((s, i) => {
+    const num = String(i + 1).padStart(2, '0');
+    html += `
+      <div class="stage-header" data-sid="${s.id}">
+        <div class="stage-num">${num}</div>
+        <div class="stage-name">${esc(s.title)}</div>
+        <div class="stage-tagline">${esc(s.tagline)}</div>
+      </div>`;
   });
 
-  // Key activities row
-  html += `<div class="row-label"><span>Key activities</span></div>`;
+  // Features row
+  html += `<div class="row-label"><span>Features</span></div>`;
   STAGES.forEach(s => {
     let cells = '';
-    s.activities.forEach(a => {
-      const pb = platformBadge(a.platform);
+    s.features.forEach(f => {
+      const systemClass = f.system ? ' w-card-system' : '';
       cells += `
-        <div class="w-card" data-stage="${s.id}" data-activity="${esc(a.title)}" role="button" tabindex="0">
-          <div class="w-card-title">${esc(a.title)}</div>
-          <div class="w-card-meta">
-            <span class="badge ${pb.cls}">${esc(pb.label)}</span>
-            <span class="badge-duration">${esc(a.type)}</span>
-          </div>
+        <div class="w-card${systemClass}" data-stage="${s.id}" data-feature="${esc(f.title)}" role="button" tabindex="0">
+          <div class="w-card-title">${esc(f.title)}</div>
         </div>`;
     });
     html += `<div class="stage-cell" data-sid="${s.id}">${cells}</div>`;
   });
 
-  // Student actions row
-  html += `<div class="row-label"><span>Student actions</span></div>`;
-  STAGES.forEach(s => {
-    const cell = `
-      <div class="student-card" data-stage="${s.id}" data-student="true" role="button" tabindex="0">
-        <div class="student-eyebrow">Student actions</div>
-        <div class="w-card-title">${esc(s.studentActions.title)}<span class="card-count">${s.studentActions.items.length}</span></div>
+  // Common Features row
+  html += `<div class="row-label"><span>Common Features</span></div>`;
+  html += `<div class="common-feat-span">`;
+  COMMON_FEATURES.forEach(f => {
+    html += `
+      <div class="common-feat-card" data-common="${esc(f.title)}" role="button" tabindex="0">
+        <div class="common-feat-eyebrow">Common Feature</div>
+        <div class="w-card-title">${esc(f.title)}</div>
       </div>`;
-    html += `<div class="stage-cell">${cell}</div>`;
   });
+  html += `</div>`;
 
-  // Staff prepare row
-  html += `<div class="row-label"><span>Staff prepare</span></div>`;
-  STAGES.forEach(s => {
-    const cell = `
-      <div class="staff-card" data-stage="${s.id}" data-staff="true" role="button" tabindex="0">
-        <div class="staff-eyebrow">Staff prepare</div>
-        <div class="w-card-title">${esc(s.staffPrepareSummary)}<span class="card-count">${s.staffPrepare.length}</span></div>
-      </div>`;
-    html += `<div class="stage-cell">${cell}</div>`;
-  });
+  // AI Agents row
+  html += `<div class="row-label"><span>AI Agents</span></div>`;
+  STAGES.forEach(() => { html += `<div class="stage-cell"></div>`; });
 
-  // Outcomes row
-  html += `<div class="row-label"><span>Outcomes</span></div>`;
-  STAGES.forEach(s => {
-    const cell = `
-      <div class="outcome-card" data-stage="${s.id}" data-outcomes="true" role="button" tabindex="0">
-        <div class="outcome-eyebrow">Outcomes</div>
-        <div class="w-card-title">${esc(s.outcomeSummary)}<span class="card-count">${s.outcomes.length}</span></div>
-      </div>`;
-    html += `<div class="stage-cell">${cell}</div>`;
-  });
-
-  // Student Support strip
+  // Integration layer strip
   html += `
-    <div class="support-row" id="supportRow" role="button" tabindex="0">
-      <div class="support-label">
-        <div class="support-eyebrow">Continuous layer</div>
-        <div class="support-title">Student Support</div>
+    <div class="integration-row" id="integrationRow" role="button" tabindex="0">
+      <div class="integration-label">
+        <div class="integration-eyebrow">Integration Layer</div>
+        <div class="integration-title">Platform Integrations</div>
       </div>
-      <div class="support-desc">A consistent support layer active from first enquiry through to alumni — covering wellbeing, mental health, financial assistance, disability services, and student advocacy across every stage of the lifecycle.</div>
-      <div class="support-tags">
-        <span class="support-tag">Wellbeing</span>
-        <span class="support-tag">Mental Health</span>
-        <span class="support-tag">Financial Aid</span>
-        <span class="support-tag">Disability Services</span>
-        <span class="support-tag">Student Advocacy</span>
-        <span class="support-tag">Crisis Support</span>
-        <span class="support-tag">Complaints</span>
-        <span class="support-tag">Appeals</span>
+      <div class="integration-desc">Connects with your existing university and government systems — no rip and replace. The accelerator integrates with your Student Management System, government portals, and specialist platforms via standard APIs and connectors.</div>
+      <div class="integration-tags">
+        <span class="integration-tag">Student Management System</span>
+        <span class="integration-tag">StudyLink</span>
+        <span class="integration-tag">Placement System</span>
+        <span class="integration-tag">VeVo</span>
+        <span class="integration-tag">USI</span>
+        <span class="integration-tag">LMS</span>
+        <span class="integration-tag">Finance System</span>
+        <span class="integration-tag">Identity Provider</span>
       </div>
     </div>`;
 
   document.getElementById('lifecycleGrid').innerHTML = html;
 
   // Bind events
-  document.querySelectorAll('[data-activity]').forEach(el => {
-    el.addEventListener('click', () => openActivity(el.dataset.stage, el.dataset.activity));
-    el.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') openActivity(el.dataset.stage, el.dataset.activity); });
+  document.querySelectorAll('[data-feature]').forEach(el => {
+    el.addEventListener('click', () => openFeature(el.dataset.stage, el.dataset.feature));
+    el.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') openFeature(el.dataset.stage, el.dataset.feature); });
   });
-  document.querySelectorAll('[data-student]').forEach(el => {
-    el.addEventListener('click', () => openStudentActions(el.dataset.stage));
-    el.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') openStudentActions(el.dataset.stage); });
+  document.querySelectorAll('[data-common]').forEach(el => {
+    el.addEventListener('click', () => openCommonFeat(el.dataset.common));
+    el.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') openCommonFeat(el.dataset.common); });
   });
-  document.querySelectorAll('[data-staff]').forEach(el => {
-    el.addEventListener('click', () => openStaffPrepare(el.dataset.stage));
-    el.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') openStaffPrepare(el.dataset.stage); });
-  });
-  document.querySelectorAll('[data-outcomes]').forEach(el => {
-    el.addEventListener('click', () => openOutcomes(el.dataset.stage));
-    el.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') openOutcomes(el.dataset.stage); });
-  });
-  document.getElementById('supportRow').addEventListener('click', openSupport);
-  document.getElementById('supportRow').addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') openSupport(); });
+  document.getElementById('integrationRow').addEventListener('click', openIntegration);
+  document.getElementById('integrationRow').addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') openIntegration(); });
 }
 
 // ── Panel renderers ───────────────────────────────────────────────────────────
@@ -1145,17 +1198,59 @@ function renderSections(sections) {
   return html;
 }
 
-function openActivity(stageId, title) {
+function openFeature(stageId, title) {
   const stage = STAGES.find(s => s.id === stageId);
-  const a = stage.activities.find(x => x.title === title);
-  if (!a) return;
-  const pb = platformBadge(a.platform);
+  const f = stage.features.find(x => x.title === title);
+  if (!f) return;
+  const pb = platformBadge(f.platform);
 
   document.getElementById('panelEyebrow').textContent = stage.title;
-  document.getElementById('panelTitle').textContent = a.title;
+  document.getElementById('panelTitle').textContent = f.title;
   document.getElementById('panelMeta').innerHTML = `
     <span class="badge ${pb.cls}">${esc(pb.label)}</span>
-    <span class="badge-duration">${esc(a.type)}</span>`;
+    <span class="badge-duration">${esc(f.type)}</span>`;
+
+  let body = `<p class="panel-desc">${esc(f.desc)}</p>`;
+  body += renderSections(f.sections);
+  document.getElementById('panelBody').innerHTML = body;
+  openPanel();
+}
+
+function openStudentExp(stageId) {
+  const stage = STAGES.find(s => s.id === stageId);
+  const se = stage.studentExperiences;
+
+  document.getElementById('panelEyebrow').textContent = stage.title + ' \u00b7 Student Experience';
+  document.getElementById('panelTitle').textContent = se.title;
+  document.getElementById('panelMeta').innerHTML = `<span class="badge badge-async">Self-service</span>`;
+
+  let body = `<p class="panel-desc">${esc(se.desc)}</p>`;
+  body += `<ul class="panel-list">${se.items.map(i => `<li>${esc(i)}</li>`).join('')}</ul>`;
+  document.getElementById('panelBody').innerHTML = body;
+  openPanel();
+}
+
+function openStaffExp(stageId) {
+  const stage = STAGES.find(s => s.id === stageId);
+  const se = stage.staffExperiences;
+
+  document.getElementById('panelEyebrow').textContent = stage.title + ' \u00b7 Staff Experience';
+  document.getElementById('panelTitle').textContent = se.title;
+  document.getElementById('panelMeta').innerHTML = `<span class="badge badge-apps">Power Apps</span>`;
+
+  let body = `<p class="panel-desc">${esc(se.desc)}</p>`;
+  body += `<ul class="panel-list">${se.items.map(i => `<li>${esc(i)}</li>`).join('')}</ul>`;
+  document.getElementById('panelBody').innerHTML = body;
+  openPanel();
+}
+
+function openAgent(stageId) {
+  const stage = STAGES.find(s => s.id === stageId);
+  const a = stage.aiAgent;
+
+  document.getElementById('panelEyebrow').textContent = stage.title + ' \u00b7 AI Agent';
+  document.getElementById('panelTitle').textContent = a.title;
+  document.getElementById('panelMeta').innerHTML = `<span class="badge badge-agent">Copilot Agent</span>`;
 
   let body = `<p class="panel-desc">${esc(a.desc)}</p>`;
   body += renderSections(a.sections);
@@ -1163,79 +1258,46 @@ function openActivity(stageId, title) {
   openPanel();
 }
 
-function openStudentActions(stageId) {
-  const stage = STAGES.find(s => s.id === stageId);
-  const sa = stage.studentActions;
-
-  document.getElementById('panelEyebrow').textContent = stage.title + ' \u00b7 Student Actions';
-  document.getElementById('panelTitle').textContent = sa.title;
-  document.getElementById('panelMeta').innerHTML = `<span class="badge badge-async">Self-service</span>`;
-
-  let body = `<p class="panel-desc">${esc(sa.desc)}</p>`;
-  body += `<ul class="panel-list">${sa.items.map(i => `<li>${esc(i)}</li>`).join('')}</ul>`;
+function openCommonFeat(title) {
+  const f = COMMON_FEATURES.find(x => x.title === title);
+  if (!f) return;
+  document.getElementById('panelEyebrow').textContent = 'Common Feature · All Stages';
+  document.getElementById('panelTitle').textContent = f.title;
+  document.getElementById('panelMeta').innerHTML = `<span class="badge badge-async">All Stages</span>`;
+  let body = `<p class="panel-desc">${esc(f.desc)}</p>`;
+  body += renderSections(f.sections);
   document.getElementById('panelBody').innerHTML = body;
   openPanel();
 }
 
-function openStaffPrepare(stageId) {
-  const stage = STAGES.find(s => s.id === stageId);
 
-  document.getElementById('panelEyebrow').textContent = stage.title + ' \u00b7 Staff Prepare';
-  document.getElementById('panelTitle').textContent = stage.staffPrepareSummary;
-  document.getElementById('panelMeta').innerHTML = `<span class="badge badge-apps">Power Apps</span>`;
-
-  const body = `<ul class="panel-list">${stage.staffPrepare.map(i => `<li>${esc(i)}</li>`).join('')}</ul>`;
-  document.getElementById('panelBody').innerHTML = body;
-  openPanel();
-}
-
-function openOutcomes(stageId) {
-  const stage = STAGES.find(s => s.id === stageId);
-
-  document.getElementById('panelEyebrow').textContent = stage.title + ' \u00b7 Outcomes';
-  document.getElementById('panelTitle').textContent = stage.outcomeSummary;
-  document.getElementById('panelMeta').innerHTML = '';
-
-  const body = `<ul class="panel-list">${stage.outcomes.map(o => `<li>${esc(o)}</li>`).join('')}</ul>`;
-  document.getElementById('panelBody').innerHTML = body;
-  openPanel();
-}
-
-function openSupport() {
-  document.getElementById('panelEyebrow').textContent = 'Continuous Layer';
-  document.getElementById('panelTitle').textContent = 'Student Support';
-  document.getElementById('panelMeta').innerHTML = `<span class="badge badge-async">Continuous</span>`;
+function openIntegration() {
+  document.getElementById('panelEyebrow').textContent = 'Integration Layer';
+  document.getElementById('panelTitle').textContent = 'Platform Integrations';
+  document.getElementById('panelMeta').innerHTML = `<span class="badge badge-async">All Stages</span>`;
 
   const body = `
-    <p class="panel-desc">A consistent support layer active from first enquiry through to alumni — covering wellbeing, mental health, financial assistance, disability services, and student advocacy across every stage of the lifecycle.</p>
-    <div class="panel-note green">&#x1f4a1; Student Support is a running thread, not a stage activity. It operates across the whole lifecycle, ensuring no student falls through the gap regardless of where they are in their journey.</div>
+    <p class="panel-desc">The accelerator connects with your existing university and government systems via standard APIs and Microsoft Power Platform connectors — no rip and replace required. Integrations are configurable and can be phased to match your implementation roadmap.</p>
     <div class="panel-section">
-      <p class="panel-section-title">What Student Support covers</p>
+      <p class="panel-section-title">Core system integrations</p>
       <ul class="panel-list">
-        <li>Wellbeing check-ins and proactive outreach to students showing signs of disengagement</li>
-        <li>Mental health referrals and case management, including crisis response</li>
-        <li>Financial hardship assessment and emergency aid distribution</li>
-        <li>Disability support plans &mdash; assessment, reasonable adjustments, and review</li>
-        <li>Student advocacy &mdash; guidance through formal complaints, academic appeals, and misconduct processes</li>
-        <li>Peer support programs and community-building initiatives</li>
+        <li><strong>Student Management System</strong> — bi-directional sync of student records, enrolments, academic results, and progression data</li>
+        <li><strong>StudyLink</strong> — student loan and allowance eligibility verification and enrolment reporting</li>
+        <li><strong>Placement System</strong> — work-integrated learning placement data, employer records, and completion tracking</li>
+        <li><strong>VeVo</strong> — visa entitlement verification for international students at enrolment and key checkpoints</li>
+        <li><strong>USI (Unique Student Identifier)</strong> — USI verification and reporting for compliance with national training requirements</li>
+        <li><strong>LMS (Learning Management System)</strong> — course content, assessment submissions, and attendance data</li>
+        <li><strong>Finance System</strong> — fee invoicing, payment status, scholarship disbursements, and financial holds</li>
+        <li><strong>Identity Provider</strong> — single sign-on via Azure AD / Entra ID for staff and students</li>
       </ul>
     </div>
     <div class="panel-section">
-      <p class="panel-section-title">How it works across stages</p>
+      <p class="panel-section-title">Integration approach</p>
       <ul class="panel-list">
-        <li><strong>Stages 1&ndash;2:</strong> Support services introduced during enquiry and application; accessibility needs captured early</li>
-        <li><strong>Stage 3:</strong> Support referrals initiated during onboarding for students who disclose needs</li>
-        <li><strong>Stage 4:</strong> Ongoing monitoring, proactive outreach, and case management during studies</li>
-        <li><strong>Stage 5:</strong> Wellbeing check-in ahead of graduation; support for students with outstanding needs</li>
-        <li><strong>Stage 6:</strong> Alumni mental health and career transition support</li>
-      </ul>
-    </div>
-    <div class="panel-section">
-      <p class="panel-section-title">Built on</p>
-      <ul class="panel-list">
-        <li>Power Apps &mdash; case management for support staff; referral and triage workflows</li>
-        <li>Power Pages &mdash; student self-referral forms; support resource hub; appointment booking</li>
-        <li>Copilot Studio &mdash; 24/7 triage agent; guides students to the right service; escalates urgent cases to on-call staff</li>
+        <li>Microsoft Power Platform connectors for out-of-the-box integrations with 1,000+ systems</li>
+        <li>Azure Integration Services (Logic Apps, API Management) for complex or custom integrations</li>
+        <li>Dataverse virtual tables for real-time data access without duplication</li>
+        <li>Phased integration roadmap — start with priority systems and expand over time</li>
       </ul>
     </div>`;
 
@@ -1267,7 +1329,6 @@ renderGrid();
 
 
 <footer class="page-footer">
-  <span class="footer-label">Created by</span>
   <div class="logo">
     <img class="logo-img" src="https://images.squarespace-cdn.com/content/v1/697a873a313d78431864c69f/df0d74a2-4bd9-4c41-a37b-b1349abe9cb7/Bayshann-Full-Logo-Blue-Transparent.png.png" alt="Bayshann">
   </div>
