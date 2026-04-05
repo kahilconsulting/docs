@@ -28,7 +28,7 @@
       padding: 5px 0 10px;
     }
     .page-header h1 {
-      font-size: 14px;
+      font-size: 30px;
       font-weight: 400;
       color: #ffffff;
       letter-spacing: -0.3px;
@@ -37,7 +37,7 @@
       color: #2FA6A4;
     }
     .page-header .platform-tag {
-      font-size: 12px;
+      font-size: 20px;
       color: rgba(211, 218, 232, 0.55);
       margin-top: 4px;
     }
@@ -55,7 +55,7 @@
       gap: 16px;
     }
     .footer-label {
-      font-size: 11px;
+      font-size: 17px;
       font-weight: 600;
       color: rgba(17,24,39,0.45);
       text-transform: uppercase;
@@ -64,20 +64,20 @@
     }
 
     .page-footer .created-by {
-    font-size: 11px;
+    font-size: 17px;
     color: rgba(30, 47, 84, 0.644);
     white-space: nowrap;
   }
 
     .logo { display: flex; align-items: center; gap: 9px; }
-    .logo-img { height: 26px; width: auto; display: block; flex-shrink: 0; object-fit: contain; }
+    .logo-img { height: 39px; width: auto; display: block; flex-shrink: 0; object-fit: contain; }
     .brand-sep { width: 1px; height: 24px; background: #E2E8F0; flex-shrink: 0; }
-    .partner-logo { height: 26px; width: auto; display: block; object-fit: contain; }
+    .partner-logo { height: 39px; width: auto; display: block; object-fit: contain; }
 
     /* ── Journey bar ── */
     .journey-bar {
       border-bottom: 0px solid #E2E8F0;
-      padding-top: 20px;
+      padding-top: 30px;
       display: flex;
       align-items: center;
       gap: 16px;
@@ -95,7 +95,7 @@
       background: linear-gradient(to left, transparent, rgba(17,24,39,0.15));
     }
     .journey-bar-label {
-      font-size: 10px;
+      font-size: 15px;
       font-weight: 700;
       color: rgba(17,24,39,0.4);
       text-transform: uppercase;
@@ -103,20 +103,20 @@
       white-space: nowrap;
     }
     .journey-bar-arrow {
-      font-size: 16px;
+      font-size: 24px;
       color: rgba(17,24,39,0.25);
     }
 
     /* ── Lifecycle container ── */
     .lifecycle-wrap {
-      padding: 20px 30px 50px 30px;
+      padding: 30px 30px 50px 30px;
       overflow-x: auto;
     }
 
     /* ── Grid ── */
     .lifecycle-grid {
       display: grid;
-      grid-template-columns: 76px repeat(6, 1fr);
+      grid-template-columns: 100px repeat(6, 1fr);
       min-width: 960px;
       border: 1px solid #E2E8F0;
       border-radius: 16px;
@@ -144,7 +144,7 @@
       background: #111827;
     }
     .stage-num {
-      font-size: 9px;
+      font-size: 14px;
       font-weight: 700;
       color: rgba(17,24,39,0.3);
       letter-spacing: 1px;
@@ -152,14 +152,14 @@
       margin-bottom: 8px;
     }
     .stage-name {
-      font-size: 13px;
+      font-size: 20px;
       font-weight: 700;
       color: #111827;
       line-height: 1.3;
       margin-bottom: 5px;
     }
     .stage-tagline {
-      font-size: 11px;
+      font-size: 17px;
       color: rgba(17,24,39,0.45);
       line-height: 1.4;
     }
@@ -171,16 +171,17 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 10px 6px;
+      padding: 10px 16px;
     }
     .row-label span {
-      font-size: 9px;
+      font-size: 14px;
       font-weight: 700;
       color: rgba(17,24,39,0.45);
       text-align: center;
       line-height: 1.35;
       text-transform: uppercase;
       letter-spacing: 0.8px;
+      padding: 0 10px;
     }
     .row-label.top-corner {
       background: #fff;
@@ -196,12 +197,16 @@
       border: 1px solid #E2E8F0;
       border-left: 3px solid #E2E8F0;
       border-radius: 7px;
-      padding: 9px 11px;
+      padding: 11px 11px;
       margin-bottom: 7px;
       cursor: pointer;
       transition: box-shadow 0.15s, transform 0.12s;
       user-select: none;
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
     }
+    .w-card-body { flex: 1; min-width: 0; }
     .w-card:last-of-type { margin-bottom: 0; }
     .w-card:hover {
       border-color: #1F7F7D;
@@ -221,7 +226,7 @@
       border-color: rgba(30,41,59,0.18) !important;
     }
     .w-card-title {
-      font-size: 12px;
+      font-size: 16px;
       font-weight: 600;
       line-height: 1.35;
       color: #111827;
@@ -231,22 +236,55 @@
 
     /* ── Badges ── */
     .badge {
-      font-size: 9px;
+      font-size: 14px;
       font-weight: 700;
       padding: 2px 6px;
       border-radius: 4px;
       text-transform: uppercase;
       letter-spacing: 0.3px;
+      display: inline-flex;
+      align-items: center;
     }
-    .badge-apps  { background: #111827; color: #fff; }
-    .badge-pages { background: #F1F5F9; color: rgba(17,24,39,0.65); }
-    .badge-agent { background: #EEF2FF; color: #4338CA; }
+    .badge-apps  { background: rgba(116,39,116,0.08); color: #742774; border: 1px solid rgba(116,39,116,0.2); }
+    .badge-apps img { width: 14px; height: 14px; margin-right: 4px; }
+    .badge-pages { background: rgba(82,67,200,0.07); color: #5243C8; border: 1px solid rgba(82,67,200,0.2); }
+    .badge-pages img { width: 14px; height: 14px; margin-right: 4px; }
+    .badge-agent { background: rgba(214,50,160,0.07); color: #C0309A; border: 1px solid rgba(214,50,160,0.25); }
+    .badge-d365  { background: rgba(16,100,200,0.07); color: #1064C8; border: 1px solid rgba(16,100,200,0.2); }
+    .badge-d365 img { width: 14px; height: 14px; margin-right: 4px; }
+    .badge-azure { background: rgba(0,120,212,0.07); color: #0078D4; border: 1px solid rgba(0,120,212,0.2); }
+    .badge-azure img { width: 14px; height: 14px; margin-right: 4px; }
     .badge-async { background: #F1F5F9; color: rgba(17,24,39,0.65); }
-    .badge-duration { font-size: 10px; color: rgba(17,24,39,0.5); font-weight: 500; }
+    .badge-duration { font-size: 15px; color: rgba(17,24,39,0.5); font-weight: 500; }
+
+    /* ── Card description ── */
+    .w-card-desc {
+      font-size: 12px;
+      color: rgba(17,24,39,0.48);
+      line-height: 1.4;
+      overflow: hidden;
+      max-height: 0;
+      margin-top: 0;
+      opacity: 0;
+      transform: translateY(5px);
+      transition:
+        max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+        opacity 0.3s ease,
+        transform 0.3s ease,
+        margin-top 0.3s ease;
+    }
+    .w-card:hover .w-card-desc,
+    .common-feat-card:hover .w-card-desc,
+    .agent-card:hover .w-card-desc {
+      max-height: 20em;
+      margin-top: 4px;
+      opacity: 1;
+      transform: translateY(0);
+    }
 
     /* ── Card count badge ── */
     .card-count {
-      font-size: 9px;
+      font-size: 14px;
       font-weight: 600;
       color: rgba(17,24,39,0.4);
       background: #E2E8F0;
@@ -257,12 +295,33 @@
       letter-spacing: 0;
     }
 
+    /* ── Card platform icon stack ── */
+    .card-platform-icons {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      align-items: center;
+      flex-shrink: 0;
+      padding-top: 1px;
+    }
+    .card-platform-icon {
+      width: 16px;
+      height: 16px;
+      object-fit: contain;
+      border-radius: 3px;
+      opacity: 0.7;
+      display: none;
+    }
+
     /* ── Common Features card ── */
     .common-feat-card {
       border: 1px solid #E2E8F0;
       border-left: 3px solid #72D4CF;
       border-radius: 7px;
-      padding: 9px 11px;
+      padding: 11px 11px;
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
       cursor: pointer;
       background: #fff;
       transition: box-shadow 0.15s, transform 0.12s;
@@ -274,7 +333,7 @@
       transform: translateY(-1px);
     }
     .common-feat-eyebrow {
-      font-size: 8px;
+      font-size: 12px;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 1.2px;
@@ -286,7 +345,7 @@
     /* ── Common Features spanning cell ── */
     .common-feat-span {
       grid-column: 2 / -1;
-      padding: 12px 10px;
+      padding: 28px 10px 12px;
       display: flex;
       gap: 10px;
     }
@@ -300,12 +359,16 @@
       border: 1px solid #E2E8F0;
       border-left: 3px solid #7C3AED;
       border-radius: 7px;
-      padding: 9px 11px;
+      padding: 11px 11px;
       margin-bottom: 7px;
       cursor: pointer;
       transition: box-shadow 0.15s, transform 0.12s;
       user-select: none;
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
     }
+    .agent-card-body { flex: 1; min-width: 0; }
     .agent-card:last-of-type { margin-bottom: 0; }
     .agent-card:hover {
       border-color: #7C3AED;
@@ -313,14 +376,14 @@
       transform: translateY(-1px);
     }
     .agent-eyebrow {
-      font-size: 8px;
+      font-size: 12px;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 1.2px;
       color: #4338CA;
       margin-bottom: 3px;
     }
-    .agent-card .w-card-title { margin-bottom: 0; font-size: 10px; display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    .agent-card .w-card-title { margin-bottom: 0; font-size: 12px; display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
     .agent-card-header { display: flex; align-items: flex-start; gap: 5px; }
     .agent-icon { width: 14px; height: 14px; object-fit: contain; flex-shrink: 0; margin-top: 1px; }
     .stage-cell.agents-cell { display: flex; flex-wrap: wrap; gap: 5px; align-content: flex-start; }
@@ -343,7 +406,7 @@
     .integration-row:hover { background: rgba(30,41,59,0.08); }
     .integration-label { flex-shrink: 0; min-width: 160px; }
     .integration-eyebrow {
-      font-size: 9px;
+      font-size: 14px;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 1.2px;
@@ -351,13 +414,13 @@
       margin-bottom: 3px;
     }
     .integration-title {
-      font-size: 13px;
+      font-size: 20px;
       font-weight: 700;
       color: #111827;
       line-height: 1.3;
     }
     .integration-desc {
-      font-size: 12px;
+      font-size: 16px;
       color: rgba(17,24,39,0.65);
       line-height: 1.55;
       flex: 1;
@@ -365,7 +428,7 @@
     }
     .integration-tags { display: flex; flex-wrap: wrap; gap: 5px; align-items: center; }
     .integration-tag {
-      font-size: 10px;
+      font-size: 15px;
       font-weight: 600;
       color: #334155;
       background: rgba(30,41,59,0.1);
@@ -426,7 +489,7 @@
       background: #F1F5F9;
       border-radius: 6px;
       cursor: pointer;
-      font-size: 14px;
+      font-size: 21px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -437,7 +500,7 @@
     .panel-close:hover { background: #111827; color: #fff; }
 
     .panel-eyebrow {
-      font-size: 10px;
+      font-size: 15px;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 1px;
@@ -445,7 +508,7 @@
       margin-bottom: 5px;
     }
     .panel-title {
-      font-size: 19px;
+      font-size: 29px;
       font-weight: 700;
       letter-spacing: -0.3px;
       line-height: 1.25;
@@ -461,7 +524,7 @@
       flex: 1;
     }
     .panel-desc {
-      font-size: 14px;
+      font-size: 20px;
       line-height: 1.65;
       color: rgba(17,24,39,0.72);
       margin-bottom: 14px;
@@ -472,7 +535,7 @@
       border-left: 3px solid #c8a000;
       border-radius: 0 6px 6px 0;
       padding: 10px 14px;
-      font-size: 12px;
+      font-size: 18px;
       color: #554400;
       line-height: 1.5;
       margin-bottom: 16px;
@@ -485,7 +548,7 @@
     }
     .panel-section { margin-bottom: 16px; }
     .panel-section-title {
-      font-size: 10px;
+      font-size: 15px;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.9px;
@@ -495,7 +558,7 @@
       border-bottom: 1px solid #E2E8F0;
     }
     .panel-subsection {
-      font-size: 12px;
+      font-size: 18px;
       font-weight: 700;
       color: #111827;
       margin: 12px 0 5px;
@@ -504,7 +567,7 @@
     }
     .panel-list { list-style: none; padding: 0; }
     .panel-list li {
-      font-size: 13px;
+      font-size: 16px;
       color: rgba(17,24,39,0.72);
       padding: 3px 0 3px 16px;
       position: relative;
@@ -514,19 +577,102 @@
       content: '';
       position: absolute;
       left: 3px;
-      top: 9px;
+      top: 0.6em;
       width: 6px;
       height: 6px;
       border-radius: 50%;
-      background: #2FA6A4;
+      background: rgba(17,24,39,0.72);
     }
     .panel-list li strong { color: #111827; font-weight: 600; }
+
+    /* ── Tech legend ── */
+    .tech-legend {
+      background: #fff;
+      border-top: 1px solid #E2E8F0;
+      border-bottom: 1px solid #E2E8F0;
+      padding: 16px 32px;
+      margin-bottom: 30px;
+    }
+    .tech-legend-inner {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .tech-legend-title {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.4px;
+      color: rgba(17,24,39,0.4);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .tech-legend-sep {
+      width: 1px;
+      height: 20px;
+      background: #E2E8F0;
+      flex-shrink: 0;
+    }
+    .tech-legend-items {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 10px 5px 7px;
+      border-radius: 20px;
+      border: 1.5px solid #E2E8F0;
+      background: #F8FAFC;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 600;
+      color: rgba(17,24,39,0.5);
+      transition: border-color 0.15s, background 0.15s, color 0.15s, opacity 0.15s;
+      user-select: none;
+      position: relative;
+    }
+    .legend-item img {
+      width: 16px;
+      height: 16px;
+      object-fit: contain;
+      flex-shrink: 0;
+    }
+    .legend-item .legend-check {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      border: 1.5px solid currentColor;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 9px;
+      opacity: 0.6;
+    }
+    /* Active states per platform */
+    .legend-item[data-toggle="apps"].active    { background: rgba(116,39,116,0.07); border-color: rgba(116,39,116,0.3); color: #742774; }
+    .legend-item[data-toggle="pages"].active   { background: rgba(82,67,200,0.07);  border-color: rgba(82,67,200,0.3);  color: #5243C8; }
+    .legend-item[data-toggle="d365"].active    { background: rgba(16,100,200,0.07); border-color: rgba(16,100,200,0.3); color: #1064C8; }
+    .legend-item[data-toggle="agent"].active   { background: rgba(214,50,160,0.07); border-color: rgba(214,50,160,0.3); color: #C0309A; }
+    .legend-item[data-toggle="azure"].active   { background: rgba(0,120,212,0.07);  border-color: rgba(0,120,212,0.3);  color: #0078D4; }
+    .legend-item.active .legend-check          { opacity: 1; }
+    /* Inactive: dimmed */
+    .legend-item:not(.active) {
+      opacity: 0.5;
+    }
+    .legend-item:not(.active) img { filter: grayscale(1); }
 
     /* ── Responsive ── */
     @media (max-width: 768px) {
       .page-header { padding: 0 20px; }
       .lifecycle-wrap { padding: 16px 10px 32px; }
       .detail-panel { width: 96vw; height: 90vh; }
+      .tech-legend { padding: 14px 16px; }
     }
   </style>
 </head>
@@ -572,9 +718,9 @@ const STAGES = [
     features: [
       {
         title: 'Student Journey & Segmentation',
-        platform: 'apps',
+        platform: 'd365',
         type: 'Staff portal',
-        desc: 'Track and segment prospective students across the nurture journey, from first touch through to enquiry, with a unified prospect record and engagement scoring.',
+        desc: 'Track and segment prospective students across the nurture journey, from first touch through to enquiry.',
         sections: [{ head: null, items: [
           'Unified prospect profile capturing all interactions, interests, and touchpoints',
           'Segment prospects by course interest, geography, study mode, and engagement level',
@@ -585,7 +731,7 @@ const STAGES = [
       },
       {
         title: 'Marketing Activities',
-        platform: 'apps',
+        platform: 'd365',
         type: 'Staff portal',
         desc: 'Plan, execute, and track multi-channel marketing activities including email campaigns, phone calls, and appointments across the prospect journey.',
         sections: [{ head: null, items: [
@@ -598,7 +744,7 @@ const STAGES = [
       },
       {
         title: 'Website Activity Tracking',
-        platform: 'pages',
+        platform: 'd365',
         type: 'Self-service',
         desc: 'Capture and analyse prospect behaviour on the university website and portal, linking activity to individual records to inform outreach and personalisation.',
         sections: [{ head: null, items: [
@@ -611,9 +757,9 @@ const STAGES = [
       },
       {
         title: 'Event Management',
-        platform: 'pages',
+        platform: 'd365',
         type: 'Self-service',
-        desc: 'Manage the full lifecycle of recruitment events — open days, campus tours, webinars, and information sessions — from registration through to post-event follow-up.',
+        desc: 'Manage the full lifecycle of recruitment events like open days, campus tours, webinars, and information sessions, from registration through to post-event follow-up.',
         sections: [{ head: null, items: [
           'Browse and register for upcoming open days, campus tours, and information sessions',
           'Receive confirmation emails and calendar invites on registration',
@@ -667,7 +813,7 @@ const STAGES = [
     features: [
       {
         title: 'Enquiry Management',
-        platform: 'apps',
+        platform: 'd365',
         type: 'Staff portal',
         desc: 'Capture, assign, and resolve inbound enquiries from all channels in a centralised inbox, ensuring every prospective student receives a timely and consistent response.',
         sections: [{ head: null, items: [
@@ -680,7 +826,7 @@ const STAGES = [
       },
       {
         title: 'Knowledge Management',
-        platform: 'apps',
+        platform: 'd365',
         type: 'Staff portal',
         desc: 'Maintain a centralised, searchable knowledge base of FAQs, policies, and course information that powers consistent answers across staff and AI channels.',
         sections: [{ head: null, items: [
@@ -693,7 +839,7 @@ const STAGES = [
       },
       {
         title: 'Student Survey',
-        platform: 'pages',
+        platform: 'd365',
         type: 'Self-service',
         desc: 'Collect structured feedback and preference data from prospective students to personalise outreach, improve recruitment activities, and inform course planning.',
         sections: [{ head: null, items: [
@@ -751,7 +897,7 @@ const STAGES = [
         title: 'Student Applications to Study',
         platform: 'pages',
         type: 'Self-service',
-        desc: 'A guided, end-to-end online application experience covering personal details, academic history, supporting documents, and submission — with full status visibility for applicants and staff.',
+        desc: 'A guided, end-to-end online application experience covering personal details, academic history, supporting documents, and submission with full status visibility for applicants and staff.',
         sections: [{ head: null, items: [
           'Step-by-step application form with save-and-return capability',
           'Personal details, academic history, and supporting statement sections',
@@ -765,7 +911,7 @@ const STAGES = [
         title: 'Scholarship Application Management',
         platform: 'pages',
         type: 'Self-service',
-        desc: 'Allow students to discover, apply for, and track scholarship opportunities — while staff manage eligibility assessment, awarding, and disbursement workflows.',
+        desc: 'Allow students to discover, apply for, and track scholarship opportunities, while staff manage eligibility assessment, awarding, and disbursement workflows.',
         sections: [{ head: null, items: [
           'Browse available scholarships with eligibility criteria and application deadlines',
           'Submit scholarship applications with supporting statements and evidence',
@@ -801,7 +947,8 @@ const STAGES = [
     aiAgents: [
       {
         title: 'Document Data Extractor',
-        desc: 'Automatically extracts and validates structured data from submitted application documents — reducing manual data entry and accelerating the admissions review process.',
+        extraBadge: 'azure',
+        desc: 'Automatically extracts and validates structured data from submitted application documents, reducing manual data entry and accelerating the admissions review process.',
         sections: [{ head: null, items: [
           'Extracts key data fields from uploaded transcripts, identification, and supporting documents',
           'Maps extracted data to the applicant record automatically for staff review',
@@ -813,7 +960,7 @@ const STAGES = [
       },
       {
         title: 'Eligibility Checker',
-        desc: 'Assesses applicant eligibility against available scholarship criteria in real time — helping prospective students discover relevant opportunities and reducing manual screening for staff.',
+        desc: 'Assesses applicant eligibility against available scholarship criteria in real time, helping prospective students discover relevant opportunities and reducing manual screening for staff.',
         sections: [{ head: null, items: [
           'Matches applicant profile against all active scholarship eligibility criteria',
           'Surfaces relevant scholarships the applicant may not have been aware of',
@@ -835,7 +982,7 @@ const STAGES = [
       },
       {
         title: 'Scholarship Scorer',
-        desc: 'Applies consistent, criteria-based scoring to scholarship applications — reducing assessment bias and helping staff prioritise and compare applicants efficiently.',
+        desc: 'Applies consistent, criteria-based scoring to scholarship applications, reducing assessment bias and helping staff prioritise and compare applicants efficiently.',
         sections: [{ head: null, items: [
           'Scores each application against defined scholarship criteria using a weighted model',
           'Produces a ranked shortlist of applicants for each scholarship round',
@@ -857,7 +1004,7 @@ const STAGES = [
         title: 'Credit Transfer & RPL Management',
         platform: 'apps',
         type: 'Staff portal',
-        desc: 'Manage applications for credit transfer and Recognition of Prior Learning — capturing evidence, routing for academic assessment, and recording approved exemptions against the student record.',
+        desc: 'Manage applications for credit transfer and Recognition of Prior Learning, capturing evidence, routing for academic assessment, and recording approved exemptions against the student record.',
         sections: [{ head: null, items: [
           'Students submit credit transfer or RPL applications with supporting evidence online',
           'Route applications to the relevant faculty or academic assessor for review',
@@ -932,7 +1079,7 @@ const STAGES = [
       },
       {
         title: 'Document Genuineness Checker',
-        desc: 'Analyses submitted documents for authenticity indicators — helping admissions staff identify potentially fraudulent or altered documents before assessment proceeds.',
+        desc: 'Analyses submitted documents for authenticity indicators, helping admissions staff identify potentially fraudulent or altered documents before assessment proceeds.',
         sections: [{ head: null, items: [
           'Checks submitted documents for signs of tampering, alteration, or inconsistency',
           'Cross-references document metadata, formatting, and issuer patterns against known standards',
@@ -943,7 +1090,7 @@ const STAGES = [
       },
       {
         title: 'Payslips Checker & Calculator',
-        desc: 'Extracts and validates income data from submitted payslips — supporting government funding eligibility assessments and financial means-testing with accurate, automated calculations.',
+        desc: 'Extracts and validates income data from submitted payslips, supporting government funding eligibility assessments and financial means-testing with accurate, automated calculations.',
         sections: [{ head: null, items: [
           'Extracts income figures, employer details, and pay periods from uploaded payslips',
           'Calculates annualised income and compares against funding eligibility thresholds',
@@ -1098,7 +1245,7 @@ const STAGES = [
 const COMMON_FEATURES = [
   {
     title: 'Student 360 View',
-    desc: 'A unified, real-time view of every student across the entire lifecycle — from first enquiry through to alumni. Built on Microsoft Dataverse, the Student 360 View connects every touchpoint into a single student record that powers personalised experiences, proactive support, and data-driven decisions.',
+    desc: 'A unified, real-time view of every student across the entire lifecycle, from first enquiry through to alumni. Built on Microsoft Dataverse, the Student 360 View connects every touchpoint into a single student record that powers personalised experiences, proactive support, and data-driven decisions.',
     sections: [{ head: null, items: [
       'Unified student profile aggregating data from enquiry, application, enrolment, study, graduation, and alumni stages',
       'Chronological interaction timeline showing every communication, event, and milestone',
@@ -1110,7 +1257,7 @@ const COMMON_FEATURES = [
   },
   {
     title: 'Reporting & Analytics',
-    desc: 'Cross-lifecycle reporting and analytics providing institutional leaders, faculty, and support teams with real-time visibility into student outcomes, operational performance, and engagement trends — built on Power BI and Microsoft Dataverse.',
+    desc: 'Cross-lifecycle reporting and analytics providing institutional leaders, faculty, and support teams with real-time visibility into student outcomes, operational performance, and engagement trends.',
     sections: [{ head: null, items: [
       'Real-time dashboards for enrolment numbers, application conversion, and at-risk student counts',
       'Lifecycle funnel reporting from prospect through to alumni engagement',
@@ -1122,7 +1269,8 @@ const COMMON_FEATURES = [
   },
   {
     title: 'Student Support & Case Management',
-    desc: 'A consistent support layer active across every stage of the lifecycle — covering wellbeing, mental health, financial assistance, disability services, and student advocacy. Staff create, manage, and resolve support cases linked directly to the student record.',
+    platform: 'd365',
+    desc: 'A consistent support layer active across every stage of the lifecycle, covering wellbeing, mental health, financial assistance, disability services, and student advocacy. Staff create, manage, and resolve support cases linked directly to the student record.',
     sections: [{ head: null, items: [
       'Create and manage support cases across wellbeing, financial, disability, and advocacy categories',
       'Assign cases to the appropriate support team member and track to resolution',
@@ -1134,7 +1282,7 @@ const COMMON_FEATURES = [
   },
   {
     title: 'Activity Management & Timeline',
-    desc: 'A centralised activity log and chronological timeline capturing every interaction, task, and milestone across the student lifecycle — giving staff a complete, real-time picture of all engagement and outstanding actions.',
+    desc: 'A centralised activity log and chronological timeline capturing every interaction, task, and milestone across the student lifecycle, giving staff a complete, real-time picture of all engagement and outstanding actions.',
     sections: [{ head: null, items: [
       'Log calls, emails, meetings, and notes against any student or prospect record',
       'Create and assign follow-up tasks with due dates, priority, and ownership',
@@ -1160,12 +1308,24 @@ const COLORS = {
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
 function platformBadge(platform) {
+  const appsIcon  = '<img src="https://www.microsoft.com/content/dam/microsoft/final/en-us/microsoft-product-and-services/power-platform/Microsoft_Power_Platform_Icons_PowerApps.svg" alt="">';
+  const pagesIcon = '<img src="https://www.microsoft.com/content/dam/microsoft/final/en-us/microsoft-brand/icons/PP-Hero_Icon_PowerPages.svg" alt="">';
+  const d365Icon  = '<img src="https://rapidcircle.com/wp-content/uploads/2023/11/Microsoft-Dynamics-Sales-Marketing-and-Service-280x300.png" alt="">';
   const map = {
-    apps:  { cls: 'badge-apps',  label: 'Power Apps' },
-    pages: { cls: 'badge-pages', label: 'Power Pages' },
-    agent: { cls: 'badge-agent', label: 'Copilot Agent' }
+    apps:  { cls: 'badge-apps',  html: appsIcon + 'Power Apps' },
+    pages: { cls: 'badge-pages', html: pagesIcon + 'Power Pages' },
+    agent: { cls: 'badge-agent', html: '<img src="CopilotStudioLogo.png" alt="" style="width:12px;height:12px;vertical-align:middle;margin-right:4px;margin-top:-1px;">Copilot Studio' },
+    d365:  { cls: 'badge-d365',  html: d365Icon + 'Dynamics 365' },
+    azure: { cls: 'badge-azure', html: 'Azure Foundry' }
   };
-  return map[platform] || { cls: 'badge-pages', label: platform };
+  return map[platform] || { cls: 'badge-pages', html: esc(platform) };
+}
+
+function shortDesc(str) {
+  if (!str) return '';
+  const dot = str.indexOf('.');
+  const snippet = dot > 0 && dot < 90 ? str.slice(0, dot + 1) : str.slice(0, 80).trimEnd() + '…';
+  return snippet;
 }
 
 function esc(str) {
@@ -1174,6 +1334,22 @@ function esc(str) {
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;');
+}
+
+// ── Card icon stack helper ────────────────────────────────────────────────────
+
+function cardIconStack(platforms) {
+  const iconSrc = {
+    apps:  'https://www.microsoft.com/content/dam/microsoft/final/en-us/microsoft-product-and-services/power-platform/Microsoft_Power_Platform_Icons_PowerApps.svg',
+    pages: 'https://www.microsoft.com/content/dam/microsoft/final/en-us/microsoft-brand/icons/PP-Hero_Icon_PowerPages.svg',
+    d365:  'https://rapidcircle.com/wp-content/uploads/2023/11/Microsoft-Dynamics-Sales-Marketing-and-Service-280x300.png',
+    agent: 'CopilotStudioLogo.png',
+    azure: 'https://ai.azure.com/assets/aistudio-af17733a.svg',
+  };
+  const imgs = platforms
+    .filter(p => p && iconSrc[p])
+    .map(p => `<img src="${iconSrc[p]}" alt="" class="card-platform-icon" data-platform="${p}">`);
+  return imgs.length ? `<div class="card-platform-icons">${imgs.join('')}</div>` : '';
 }
 
 // ── Render grid ───────────────────────────────────────────────────────────────
@@ -1216,37 +1392,52 @@ function renderGrid() {
     let cells = '';
     s.features.forEach(f => {
       const systemClass = f.system ? ' w-card-system' : '';
+      const iconPlatforms = f.system ? [] : [f.platform, ...(f.platform && f.platform !== 'apps' ? ['apps'] : [])].filter(Boolean);
       cells += `
         <div class="w-card${systemClass}" data-stage="${s.id}" data-feature="${esc(f.title)}" role="button" tabindex="0">
-          <div class="w-card-title">${esc(f.title)}</div>
+          <div class="w-card-body">
+            <div class="w-card-title">${esc(f.title)}</div>
+            ${f.desc ? `<div class="w-card-desc">${esc(f.desc)}</div>` : ''}
+          </div>
+          ${cardIconStack(iconPlatforms)}
         </div>`;
     });
     html += `<div class="stage-cell" data-sid="${s.id}">${cells}</div>`;
   });
 
   // Common Features row
-  html += `<div class="row-label"><span>Common Features</span></div>`;
+  html += `<div class="row-label" style="padding-top:28px"><span>Common Features</span></div>`;
   html += `<div class="common-feat-span">`;
   COMMON_FEATURES.forEach(f => {
+    const cfPlatforms = [...(f.platform ? [f.platform] : []), ...((!f.platform || f.platform !== 'apps') ? ['apps'] : [])];
     html += `
       <div class="common-feat-card" data-common="${esc(f.title)}" role="button" tabindex="0">
-        <div class="common-feat-eyebrow">Common Feature</div>
-        <div class="w-card-title">${esc(f.title)}</div>
+        <div class="w-card-body">
+          <div class="common-feat-eyebrow">Common Feature</div>
+          <div class="w-card-title">${esc(f.title)}</div>
+          ${f.desc ? `<div class="w-card-desc">${esc(f.desc)}</div>` : ''}
+        </div>
+        ${cardIconStack(cfPlatforms)}
       </div>`;
   });
   html += `</div>`;
 
   // AI Agents row
-  html += `<div class="row-label"><span>AI Agents</span></div>`;
+  html += `<div class="row-label" style="padding-top:28px"><span>AI Agents</span></div>`;
   STAGES.forEach(s => {
     let cells = '';
     (s.aiAgents || []).forEach(a => {
+      const agentPlatforms = a.extraBadge === 'azure' ? ['agent', 'azure'] : ['agent'];
       cells += `
         <div class="agent-card" data-stage="${s.id}" data-agent="${esc(a.title)}" title="${esc(a.title)}" role="button" tabindex="0">
-          <div class="agent-card-header"><img src="AIAgent.png" alt="" class="agent-icon"><div class="w-card-title">${esc(a.title)}</div></div>
+          <div class="agent-card-body">
+            <div class="agent-card-header"><img src="AIAgent.png" alt="" class="agent-icon"><div class="w-card-title">${esc(a.title)}</div></div>
+            ${a.desc ? `<div class="w-card-desc">${esc(a.desc)}</div>` : ''}
+          </div>
+          ${cardIconStack(agentPlatforms)}
         </div>`;
     });
-    html += `<div class="stage-cell agents-cell" data-sid="${s.id}">${cells}</div>`;
+    html += `<div class="stage-cell agents-cell" style="padding-top:28px" data-sid="${s.id}">${cells}</div>`;
   });
 
   // Integration layer strip
@@ -1256,7 +1447,7 @@ function renderGrid() {
         <div class="integration-eyebrow">Integration Layer</div>
         <div class="integration-title">Platform Integrations</div>
       </div>
-      <div class="integration-desc">Connects with your existing university and government systems — no rip and replace. The accelerator integrates with your Student Management System, government portals, and specialist platforms via standard APIs and connectors.</div>
+      <div class="integration-desc">Connects with your existing university and government systems. The accelerator integrates with your Student Management System, government portals, and specialist platforms via standard APIs and connectors.</div>
       <div class="integration-tags">
         <span class="integration-tag">Student Management System (StudentOne, PeopleSoft, etc.)</span>
         <span class="integration-tag">StudyLink</span>
@@ -1306,12 +1497,12 @@ function openFeature(stageId, title) {
   const f = stage.features.find(x => x.title === title);
   if (!f) return;
   const pb = platformBadge(f.platform);
+  const appsBadge = platformBadge('apps');
+  const extraApps = f.platform !== 'apps' ? `<span class="badge ${appsBadge.cls}">${appsBadge.html}</span>` : '';
 
   document.getElementById('panelEyebrow').textContent = stage.title;
   document.getElementById('panelTitle').textContent = f.title;
-  document.getElementById('panelMeta').innerHTML = `
-    <span class="badge ${pb.cls}">${esc(pb.label)}</span>
-    <span class="badge-duration">${esc(f.type)}</span>`;
+  document.getElementById('panelMeta').innerHTML = `<span class="badge ${pb.cls}">${pb.html}</span>${extraApps}`;
 
   let body = `<p class="panel-desc">${esc(f.desc)}</p>`;
   body += renderSections(f.sections);
@@ -1339,7 +1530,7 @@ function openStaffExp(stageId) {
 
   document.getElementById('panelEyebrow').textContent = stage.title + ' \u00b7 Staff Experience';
   document.getElementById('panelTitle').textContent = se.title;
-  document.getElementById('panelMeta').innerHTML = `<span class="badge badge-apps">Power Apps</span>`;
+  document.getElementById('panelMeta').innerHTML = `<span class="badge badge-apps">${platformBadge('apps').html}</span>`;
 
   let body = `<p class="panel-desc">${esc(se.desc)}</p>`;
   body += `<ul class="panel-list">${se.items.map(i => `<li>${esc(i)}</li>`).join('')}</ul>`;
@@ -1354,7 +1545,10 @@ function openAgent(stageId, agentTitle) {
 
   document.getElementById('panelEyebrow').textContent = stage.title + ' \u00b7 AI Agent';
   document.getElementById('panelTitle').textContent = a.title;
-  document.getElementById('panelMeta').innerHTML = `<span class="badge badge-agent">Copilot Agent</span>`;
+  const extraBadgeHtml = a.extraBadge === 'azure'
+    ? `<span class="badge badge-azure"><img src="https://ai.azure.com/assets/aistudio-af17733a.svg" alt="" style="width:12px;height:12px;vertical-align:middle;margin-right:4px;margin-top:-1px;">Azure Foundry</span>`
+    : '';
+  document.getElementById('panelMeta').innerHTML = `<span class="badge badge-agent"><img src="CopilotStudioLogo.png" alt="" style="width:12px;height:12px;vertical-align:middle;margin-right:4px;margin-top:-1px;">Copilot Studio</span>${extraBadgeHtml}`;
 
   let body = `<p class="panel-desc">${esc(a.desc)}</p>`;
   body += renderSections(a.sections);
@@ -1367,7 +1561,12 @@ function openCommonFeat(title) {
   if (!f) return;
   document.getElementById('panelEyebrow').textContent = 'Common Feature · All Stages';
   document.getElementById('panelTitle').textContent = f.title;
-  document.getElementById('panelMeta').innerHTML = `<span class="badge badge-async">All Stages</span>`;
+  const cpb = f.platform ? platformBadge(f.platform) : null;
+  const cappsB = platformBadge('apps');
+  const cextraApps = f.platform !== 'apps' ? `<span class="badge ${cappsB.cls}">${cappsB.html}</span>` : '';
+  document.getElementById('panelMeta').innerHTML = cpb
+    ? `<span class="badge ${cpb.cls}">${cpb.html}</span>${cextraApps}`
+    : cextraApps;
   let body = `<p class="panel-desc">${esc(f.desc)}</p>`;
   body += renderSections(f.sections);
   document.getElementById('panelBody').innerHTML = body;
@@ -1426,11 +1625,61 @@ document.getElementById('panelOverlay').addEventListener('click', closePanel);
 document.getElementById('panelClose').addEventListener('click', closePanel);
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closePanel(); });
 
+// ── Legend toggles ────────────────────────────────────────────────────────────
+
+function initLegendToggles() {
+  document.querySelectorAll('.legend-item').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const platform = btn.dataset.toggle;
+      const isNowActive = !btn.classList.contains('active');
+      btn.classList.toggle('active');
+      document.querySelectorAll(`.card-platform-icon[data-platform="${platform}"]`).forEach(icon => {
+        icon.style.display = isNowActive ? 'block' : 'none';
+      });
+    });
+  });
+}
+
 // ── Init ──────────────────────────────────────────────────────────────────────
 
 renderGrid();
+document.addEventListener('DOMContentLoaded', initLegendToggles);
 </script>
 
+
+<div class="tech-legend">
+  <div class="tech-legend-inner">
+    <span class="tech-legend-title">Microsoft Technology Stack</span>
+    <div class="tech-legend-sep"></div>
+    <div class="tech-legend-items">
+      <button class="legend-item" data-toggle="apps">
+        <img src="https://www.microsoft.com/content/dam/microsoft/final/en-us/microsoft-product-and-services/power-platform/Microsoft_Power_Platform_Icons_PowerApps.svg" alt="">
+        <span>Power Apps</span>
+        <span class="legend-check">✓</span>
+      </button>
+      <button class="legend-item" data-toggle="pages">
+        <img src="https://www.microsoft.com/content/dam/microsoft/final/en-us/microsoft-brand/icons/PP-Hero_Icon_PowerPages.svg" alt="">
+        <span>Power Pages</span>
+        <span class="legend-check">✓</span>
+      </button>
+      <button class="legend-item" data-toggle="d365">
+        <img src="https://rapidcircle.com/wp-content/uploads/2023/11/Microsoft-Dynamics-Sales-Marketing-and-Service-280x300.png" alt="">
+        <span>Dynamics 365</span>
+        <span class="legend-check">✓</span>
+      </button>
+      <button class="legend-item" data-toggle="agent">
+        <img src="CopilotStudioLogo.png" alt="">
+        <span>Copilot Studio</span>
+        <span class="legend-check">✓</span>
+      </button>
+      <button class="legend-item" data-toggle="azure">
+        <img src="https://ai.azure.com/assets/aistudio-af17733a.svg" alt="">
+        <span>Azure Foundry</span>
+        <span class="legend-check">✓</span>
+      </button>
+    </div>
+  </div>
+</div>
 
 <footer class="page-footer">
   <span class="created-by">Created by</span>
@@ -1441,7 +1690,7 @@ renderGrid();
   <div class="logo">
     <img
     src="https://kahilconsulting.com/wp-content/uploads/2025/11/cropped-Kahil-Consulting-Logo2.png"
-    alt="Kahil Consulting" style="height: 20px;"
+    alt="Kahil Consulting" style="height: 30px;"
   />
   </div>
 </footer>

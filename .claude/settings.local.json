@@ -4,7 +4,8 @@
       "Bash(powershell -Command \"$b64 = [Convert]::ToBase64String\\([IO.File]::ReadAllBytes\\(''C:\\\\Users\\\\DaniKahil\\\\OneDrive\\\\Documents\\\\DataSense_Australia\\\\KahilConsulting\\\\Training\\\\Claude Code\\\\Docs\\\\docs\\\\KahilConsultingLogo.png''\\)\\); $b64 | Out-File -FilePath ''C:\\\\Users\\\\DaniKahil\\\\.claude\\\\kahil_logo_b64.txt'' -NoNewline -Encoding ASCII; Write-Host ''Done''\")",
       "Bash(powershell -Command \"$b64 = [Convert]::ToBase64String\\([IO.File]::ReadAllBytes\\(''C:\\\\Users\\\\DaniKahil\\\\OneDrive\\\\Documents\\\\DataSense_Australia\\\\KahilConsulting\\\\Training\\\\Claude Code\\\\Docs\\\\docs\\\\KahilConsultingLogo.png''\\)\\); [IO.File]::WriteAllText\\(''C:\\\\Users\\\\DaniKahil\\\\.claude\\\\kahil_logo_b64.txt'', $b64\\)\")",
       "Bash(powershell -Command \"$src = ''C:/Users/DaniKahil/OneDrive/Documents/DataSense_Australia/KahilConsulting/Training/Claude Code/Docs/docs/KahilConsultingLogo.png''; $dst = ''C:/Users/DaniKahil/.claude/kahil_b64.txt''; $bytes = [IO.File]::ReadAllBytes\\($src\\); $b64 = [Convert]::ToBase64String\\($bytes\\); [IO.File]::WriteAllText\\($dst, $b64\\); Write-Host ''Done''\")",
-      "Bash(certutil -encode \"C:\\\\Users\\\\DaniKahil\\\\OneDrive\\\\Documents\\\\DataSense_Australia\\\\KahilConsulting\\\\Training\\\\Claude Code\\\\Docs\\\\docs\\\\KahilConsultingLogo.png\" \"C:\\\\Users\\\\DaniKahil\\\\.claude\\\\kahil_b64.txt\")"
+      "Bash(certutil -encode \"C:\\\\Users\\\\DaniKahil\\\\OneDrive\\\\Documents\\\\DataSense_Australia\\\\KahilConsulting\\\\Training\\\\Claude Code\\\\Docs\\\\docs\\\\KahilConsultingLogo.png\" \"C:\\\\Users\\\\DaniKahil\\\\.claude\\\\kahil_b64.txt\")",
+      "Bash(perl -i -pe 's/font-size:\\\\s*\\(\\\\d+\\)px/sprintf\\(\"font-size: %dpx\", int\\($1 * 1.5 + 0.5\\)\\)/ge' \"StudentFlow XP - Student Lifecycle Explorer.html\" \"StudentFlow XP - App Hub.html\")"
     ]
   }
 }
