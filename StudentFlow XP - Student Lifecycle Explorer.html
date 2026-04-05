@@ -585,6 +585,16 @@
     }
     .panel-list li strong { color: #111827; font-weight: 600; }
 
+    /* ── Card highlight pulse ── */
+    @keyframes card-highlight-pulse {
+      0%   { box-shadow: 0 0 0 0 var(--card-hl, rgba(47,166,164,0.5)); background-color: var(--card-hl-bg, rgba(47,166,164,0.12)); }
+      55%  { box-shadow: 0 0 0 5px var(--card-hl, rgba(47,166,164,0.08)); background-color: var(--card-hl-bg, rgba(47,166,164,0.06)); }
+      100% { box-shadow: 0 0 0 0 transparent; background-color: transparent; }
+    }
+    .card-highlighted {
+      animation: card-highlight-pulse 0.9s ease-out forwards;
+    }
+
     /* ── Tech legend ── */
     .tech-legend {
       background: #fff;
@@ -1336,6 +1346,17 @@ function esc(str) {
     .replace(/"/g, '&quot;');
 }
 
+// ── Extra card icons by feature title ────────────────────────────────────────
+
+const CARD_EXTRA_ICONS = {
+  'Event Management':                    ['pages'],
+  'Enquiry Management':                  ['pages'],
+  'Knowledge Management':                ['pages'],
+  'Credit Transfer & RPL Management':    ['pages'],
+  'Government Support Payment Management': ['pages'],
+  'Student Support & Case Management':   ['pages'],
+};
+
 // ── Card icon stack helper ────────────────────────────────────────────────────
 
 function cardIconStack(platforms) {
@@ -1392,7 +1413,9 @@ function renderGrid() {
     let cells = '';
     s.features.forEach(f => {
       const systemClass = f.system ? ' w-card-system' : '';
-      const iconPlatforms = f.system ? [] : [f.platform, ...(f.platform && f.platform !== 'apps' ? ['apps'] : [])].filter(Boolean);
+      const addApps = f.platform && f.platform !== 'apps' && s.id !== 'nurture' && s.id !== 'enquiry';
+      const extras = CARD_EXTRA_ICONS[f.title] || [];
+      const iconPlatforms = f.system ? [] : [f.platform, ...extras, ...(addApps ? ['apps'] : [])].filter(Boolean);
       cells += `
         <div class="w-card${systemClass}" data-stage="${s.id}" data-feature="${esc(f.title)}" role="button" tabindex="0">
           <div class="w-card-body">
@@ -1409,7 +1432,9 @@ function renderGrid() {
   html += `<div class="row-label" style="padding-top:28px"><span>Common Features</span></div>`;
   html += `<div class="common-feat-span">`;
   COMMON_FEATURES.forEach(f => {
-    const cfPlatforms = [...(f.platform ? [f.platform] : []), ...((!f.platform || f.platform !== 'apps') ? ['apps'] : [])];
+    const cfNoApps = f.title === 'Student Support & Case Management';
+    const cfExtras = CARD_EXTRA_ICONS[f.title] || [];
+    const cfPlatforms = [...(f.platform ? [f.platform] : []), ...cfExtras, ...(!cfNoApps && (!f.platform || f.platform !== 'apps') ? ['apps'] : [])];
     html += `
       <div class="common-feat-card" data-common="${esc(f.title)}" role="button" tabindex="0">
         <div class="w-card-body">
@@ -1628,14 +1653,41 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closePanel()
 // ── Legend toggles ────────────────────────────────────────────────────────────
 
 function initLegendToggles() {
+  const hlColors = {
+    apps:  { glow: 'rgba(116,39,116,0.3)',  bg: 'rgba(116,39,116,0.1)'  },
+    pages: { glow: 'rgba(82,67,200,0.3)',   bg: 'rgba(82,67,200,0.1)'   },
+    d365:  { glow: 'rgba(16,100,200,0.3)',  bg: 'rgba(16,100,200,0.1)'  },
+    agent: { glow: 'rgba(214,50,160,0.3)',  bg: 'rgba(214,50,160,0.1)'  },
+    azure: { glow: 'rgba(0,120,212,0.3)',   bg: 'rgba(0,120,212,0.1)'   },
+  };
+
   document.querySelectorAll('.legend-item').forEach(btn => {
     btn.addEventListener('click', () => {
       const platform = btn.dataset.toggle;
       const isNowActive = !btn.classList.contains('active');
       btn.classList.toggle('active');
-      document.querySelectorAll(`.card-platform-icon[data-platform="${platform}"]`).forEach(icon => {
+
+      const icons = document.querySelectorAll(`.card-platform-icon[data-platform="${platform}"]`);
+      icons.forEach(icon => {
         icon.style.display = isNowActive ? 'block' : 'none';
       });
+
+      if (isNowActive) {
+        const color = hlColors[platform] || { glow: 'rgba(47,166,164,0.3)', bg: 'rgba(47,166,164,0.1)' };
+        const seen = new Set();
+        icons.forEach(icon => {
+          const card = icon.closest('.w-card, .common-feat-card, .agent-card');
+          if (card && !seen.has(card)) {
+            seen.add(card);
+            card.style.setProperty('--card-hl', color.glow);
+            card.style.setProperty('--card-hl-bg', color.bg);
+            card.classList.remove('card-highlighted');
+            void card.offsetWidth; // force reflow to restart animation
+            card.classList.add('card-highlighted');
+            card.addEventListener('animationend', () => card.classList.remove('card-highlighted'), { once: true });
+          }
+        });
+      }
     });
   });
 }
